@@ -21,6 +21,11 @@ public class BaseMan implements Serializable {
     private String emailAddress;
     private Timestamp createdTime;
 
+    public BaseMan(String account, String hashPassword) {
+        this.account = account;
+        this.hashedPassword = hashPassword;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -35,11 +40,6 @@ public class BaseMan implements Serializable {
 
     public void setCreatedTime(Timestamp createdTime) {
         this.createdTime = createdTime;
-    }
-
-    public BaseMan(String account, String hashPassword) {
-        this.account = account;
-        this.hashedPassword = hashPassword;
     }
 
     public Integer getId() {

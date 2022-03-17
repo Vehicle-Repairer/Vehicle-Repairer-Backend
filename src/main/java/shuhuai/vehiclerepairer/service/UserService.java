@@ -24,6 +24,7 @@ public interface UserService {
      * @param repairman 维修员实例
      */
     void repairmanLogin(Repairman repairman);
+
     /**
      * 业务员登录
      *

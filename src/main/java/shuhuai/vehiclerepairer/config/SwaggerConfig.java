@@ -1,4 +1,4 @@
-package shuhuai.vehiclerepairer.utils;
+package shuhuai.vehiclerepairer.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;

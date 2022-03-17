@@ -1,6 +1,6 @@
 package shuhuai.vehiclerepairer.service.excep;
 
-public class ParamsException extends ServiceException{
+public class ParamsException extends ServiceException {
     public ParamsException() {
         super();
     }

@@ -1,7 +1,6 @@
 package shuhuai.vehiclerepairer.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.entity.Salesman;
 
 @Mapper
