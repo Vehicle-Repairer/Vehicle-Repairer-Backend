@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shuhuai.vehiclerepairer.mapper.SalesmanMapper">
+    <resultMap id="SalesmanResultMap" type="shuhuai.vehiclerepairer.entity.Salesman">
+        <id column="id" jdbcType="INTEGER" javaType="int" property="id"/>
+        <result column="account" jdbcType="VARCHAR" javaType="String" property="account"/>
+        <result column="man_name" jdbcType="VARCHAR" javaType="String" property="manName"/>
+        <result column="hashed_password" jdbcType="VARCHAR" javaType="String" property="hashedPassword"/>
+        <result column="sex" jdbcType="VARCHAR" javaType="String" property="sex"/>
+        <result column="phone" jdbcType="VARCHAR" javaType="String" property="phone"/>
+        <result column="birthday" jdbcType="DATE" javaType="java.sql.Date" property="birthday"/>
+        <result column="address" jdbcType="VARCHAR" javaType="String" property="address"/>
+        <result column="email_address" jdbcType="VARCHAR" javaType="String" property="emailAddress"/>
+        <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
+    </resultMap>
+    <sql id="column_list">
+        id, account, man_name, hashed_password, sex, phone, birthday, address, email_address, created_time
+    </sql>
+    <insert id="insertSalesman" useGeneratedKeys="true" keyProperty="id"
+            parameterType="shuhuai.vehiclerepairer.entity.Salesman">
+        insert into salesman(account, man_name, hashed_password, sex, phone, birthday, address,
+                             email_address, created_time)
+        values (#{account,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{hashedPassword,jdbcType=VARCHAR},
+                #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+                #{address,jdbcType=VARCHAR}, #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSalesmanSelective" useGeneratedKeys="true" keyProperty="id"
+            parameterType="shuhuai.vehiclerepairer.entity.Salesman">
+        insert into salesman
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                account,
+            </if>
+            <if test="manName != null">
+                man_name,
+            </if>
+            <if test="hashedPassword != null">
+                hashed_password,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="emailAddress != null">
+                email_address,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="manName != null">
+                #{manName,jdbcType=VARCHAR},
+            </if>
+            <if test="hashedPassword != null">
+                #{hashedPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="emailAddress != null">
+                #{emailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectSalesmanByAccount" resultType="shuhuai.vehiclerepairer.entity.Salesman">
+        select
+        <include refid="column_list"/>
+        from salesman
+        where account=#{account,jdbcType=VARCHAR}
+    </select>
+</mapper>
