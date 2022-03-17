@@ -5,7 +5,6 @@ import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.excep.AccountDuplicatedException;
 import shuhuai.vehiclerepairer.service.excep.ServerException;
 import shuhuai.vehiclerepairer.service.excep.ServiceException;
-
 public class BaseContrller {
     public static final int OK = 200;
 
