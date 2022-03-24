@@ -47,10 +47,11 @@ public class TokenValidator implements HandlerInterceptor {
         if (!(object instanceof HandlerMethod)) {
             return true;
         }
-        String token = httpServletRequest.getHeader("Authorization").split(" ")[1];
+        String token = httpServletRequest.getHeader("Authorization");
         if (null == token || "".equals(token.trim())) {
             throw new TokenExpireException("token无效");
         }
+        token = token.split(" ")[1];
         Map<String, String> map = parseToken(token);
         String account = map.get("account");
         String role = map.get("role");
