@@ -1,9 +1,9 @@
 package shuhuai.vehiclerepairer.service;
 
-import shuhuai.vehiclerepairer.entity.Repairman;
-import shuhuai.vehiclerepairer.entity.Salesman;
-import shuhuai.vehiclerepairer.service.excep.AccountDuplicatedException;
-import shuhuai.vehiclerepairer.service.excep.ServerException;
+import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
+import shuhuai.vehiclerepairer.service.excep.common.ServerException;
+import shuhuai.vehiclerepairer.service.excep.user.AccountDuplicatedException;
+import shuhuai.vehiclerepairer.service.excep.user.AccountPasswordErrorException;
 
 /*** 用户模块业务层接口
  * @author 殊怀丶
@@ -11,19 +11,28 @@ import shuhuai.vehiclerepairer.service.excep.ServerException;
  */
 public interface UserService {
     /**
+     * 维修员激活
+     *
+     * @param account  用户账号
+     * @param password 用户密码
+     */
+    void repairmanActive(String account, String password) throws AccountDuplicatedException, ParamsException, ServerException;
+
+    /**
      * 维修员登录
      *
      * @param account  用户账号
      * @param password 用户密码
      */
-    void repairmanRegister(String account, String password) throws AccountDuplicatedException, ServerException;
+    void repairmanLogin(String account, String password) throws ParamsException, AccountPasswordErrorException;
 
     /**
-     * 维修员登录
+     * 业务员激活
      *
-     * @param repairman 维修员实例
+     * @param account  用户账号
+     * @param password 用户密码
      */
-    void repairmanLogin(Repairman repairman);
+    void salesmanActive(String account, String password) throws AccountDuplicatedException, ParamsException, ServerException;
 
     /**
      * 业务员登录
@@ -31,12 +40,5 @@ public interface UserService {
      * @param account  用户账号
      * @param password 用户密码
      */
-    void salesmanRegister(String account, String password) throws AccountDuplicatedException, ServerException;
-
-    /**
-     * 业务员登录
-     *
-     * @param salesman 业务员实例
-     */
-    void salesmanLogin(Salesman salesman);
+    void salesmanLogin(String account, String password) throws ParamsException, AccountPasswordErrorException;
 }

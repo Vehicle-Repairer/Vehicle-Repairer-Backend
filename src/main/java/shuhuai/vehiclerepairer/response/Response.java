@@ -8,6 +8,9 @@ public class Response implements Serializable {
     private Object data;
 
     public Response() {
+        code = 0;
+        message = "";
+        data = null;
     }
 
     public Response(int code) {

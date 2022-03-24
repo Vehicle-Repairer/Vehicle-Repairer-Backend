@@ -7,10 +7,12 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.oas.annotations.EnableOpenApi;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.List;
 
 @EnableOpenApi
 @Configuration
@@ -19,6 +21,8 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30).
                 apiInfo(apiInfo())
+                .securitySchemes(List.of(tokenScheme()))
+                .securityContexts(List.of(tokenContext()))
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
@@ -31,6 +35,20 @@ public class SwaggerConfig {
                 .description("小型车辆维修管理系统接口文档")
                 .contact(new Contact("殊怀丶。", "http://lvshuhuai.cn", "lvzhihe_123@qq.com"))
                 .version("1.0")
+                .build();
+    }
+
+    private HttpAuthenticationScheme tokenScheme() {
+        return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name("Authorization").build();
+    }
+
+    private SecurityContext tokenContext() {
+        return SecurityContext.builder()
+                .securityReferences(List.of(SecurityReference.builder()
+                .scopes(new AuthorizationScope[0])
+                .reference("Authorization")
+                .build()))
+                .operationSelector(o -> o.requestMappingPattern().matches("/.*"))
                 .build();
     }
 }
