@@ -11,7 +11,7 @@ public interface SalesmanMapper {
 
     int deleteSalesmanById(int id);
 
-    int updateSalesman(Salesman salesman);
+    int updateSalesmanSelectiveByAccount(Salesman salesman);
 
     Salesman selectSalesmanByAccount(String account);
 }

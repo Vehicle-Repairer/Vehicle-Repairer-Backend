@@ -17,9 +17,7 @@ public class AuthWebConfig implements WebMvcConfigurer {
         registry.addInterceptor(tokenValidator)
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/test/generate-token")
-                .excludePathPatterns("/api/user/repairman-login")
-                .excludePathPatterns("/api/user/repairman-active")
-                .excludePathPatterns("/api/user/salesman-login")
-                .excludePathPatterns("/api/user/salesman-active");
+                .excludePathPatterns("/api/user/login")
+                .excludePathPatterns("/api/user/active");
     }
 }

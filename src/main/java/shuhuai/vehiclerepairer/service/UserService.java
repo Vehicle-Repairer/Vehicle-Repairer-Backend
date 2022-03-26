@@ -1,5 +1,7 @@
 package shuhuai.vehiclerepairer.service;
 
+import shuhuai.vehiclerepairer.entity.Repairman;
+import shuhuai.vehiclerepairer.entity.Salesman;
 import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
 import shuhuai.vehiclerepairer.service.excep.common.ServerException;
 import shuhuai.vehiclerepairer.service.excep.user.AccountDuplicatedException;
@@ -26,6 +28,8 @@ public interface UserService {
      */
     void repairmanLogin(String account, String password) throws ParamsException, AccountPasswordErrorException;
 
+    void repairmanModifyInformation(Repairman repairman);
+
     /**
      * 业务员激活
      *
@@ -41,4 +45,6 @@ public interface UserService {
      * @param password 用户密码
      */
     void salesmanLogin(String account, String password) throws ParamsException, AccountPasswordErrorException;
+
+    void salesmanModifyInformation(Salesman salesman);
 }

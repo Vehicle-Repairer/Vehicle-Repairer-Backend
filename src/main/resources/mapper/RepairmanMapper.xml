@@ -102,6 +102,45 @@
             </if>
         </trim>
     </insert>
+    <update id="updateRepairmanSelectiveByAccount" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
+        update repairman
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="manName != null">
+                man_name=#{manName,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null">
+                profession=#{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="hourCost != null">
+                hour_cost=#{hourCost,jdbcType=NUMERIC},
+            </if>
+            <if test="hashedPassword != null">
+                hashed_password= #{hashedPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex=#{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone=#{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday=#{birthday,jdbcType=DATE},
+            </if>
+            <if test="address != null">
+                address=#{address,jdbcType=VARCHAR},
+            </if>
+            <if test="emailAddress != null">
+                email_address=#{emailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time=#{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where account = #{account,jdbcType=VARCHAR}
+    </update>
     <select id="selectRepairmanByAccount" resultType="shuhuai.vehiclerepairer.entity.Repairman">
         select
         <include refid="column_list"/>

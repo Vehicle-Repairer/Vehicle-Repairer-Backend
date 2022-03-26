@@ -24,6 +24,8 @@ public class TokenValidator implements HandlerInterceptor {
     private Long yangToken;
     @Value("${token.oldToken}")
     private Long oldToken;
+    private final static ThreadLocal<Map<String, String>> threadLocal = new ThreadLocal<>();
+
 
     public String getToken(String account, String role) {
         return JWT.create().withClaim("account", account).withClaim("role", role).withClaim("timeStamp", System.currentTimeMillis())
@@ -61,9 +63,22 @@ public class TokenValidator implements HandlerInterceptor {
         } else if (timeOfUse >= oldToken) {
             throw new TokenExpireException("token过期");
         }
-        if (!"Repairman".equals(role) && !"Salesman".equals(role)) {
+        if (!"维修员".equals(role) && !"业务员".equals(role)) {
             throw new TokenExpireException("token无效");
         }
+        setUser(map);
         return true;
+    }
+
+    public static void setUser(Map<String, String> userIdentify) {
+        threadLocal.set(userIdentify);
+    }
+
+    public static Map<String, String> getUser() {
+        return threadLocal.get();
+    }
+
+    public static void removeUser() {
+        threadLocal.remove();
     }
 }

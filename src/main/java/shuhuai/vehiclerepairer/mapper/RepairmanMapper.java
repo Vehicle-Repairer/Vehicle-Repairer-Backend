@@ -11,7 +11,7 @@ public interface RepairmanMapper {
 
     int deleteRepairmanById(int id);
 
-    int updateRepairman(Repairman repairman);
+    int updateRepairmanSelectiveByAccount(Repairman repairman);
 
     Repairman selectRepairmanByAccount(String account);
 }
