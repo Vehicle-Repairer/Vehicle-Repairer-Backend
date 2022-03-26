@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.response.datatransferobject.LoginResponse;
+import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class TestController extends BaseContrller {
 
     @ApiOperation("生成token")
     @RequestMapping(value = "/generate-token", method = RequestMethod.GET)
-    public Response getToken(@RequestParam String account, @RequestParam String role) {
+    public Response getToken(@RequestParam String account, @RequestParam Role role) {
         String token = tokenValidator.getToken(account, role);
         Response response = new Response(200, "生成成功", new LoginResponse(token));
         log.info("/api/test/generate-token：" + response.getCode() + "，" + response.getMessage());

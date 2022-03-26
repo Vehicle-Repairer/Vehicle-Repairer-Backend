@@ -3,6 +3,7 @@ package shuhuai.vehiclerepairer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -16,7 +17,7 @@ public class BaseMan implements Serializable {
     private String account;
     private String manName;
     private String hashedPassword;
-    private String sex;
+    private Sex sex;
     private String phone;
     private Date birthday;
     private String address;
@@ -68,11 +69,11 @@ public class BaseMan implements Serializable {
         this.hashedPassword = hashPassword;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 

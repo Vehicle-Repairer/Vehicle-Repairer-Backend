@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,7 +23,7 @@ public class Repairman extends BaseMan implements Serializable {
         super(account, hashedPassword);
     }
 
-    public Repairman(Integer id, String account, String manName, String hashedPassword, String sex, String phone, Date birthday, String address, String emailAddress,
+    public Repairman(Integer id, String account, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
                      Timestamp createdTime, String profession, BigDecimal hourCost) {
         super(id, account, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
         this.profession = profession;

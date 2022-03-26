@@ -3,7 +3,7 @@ package shuhuai.vehiclerepairer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -17,7 +17,7 @@ public class Salesman extends BaseMan implements Serializable {
         super(account, hashedPassword);
     }
 
-    public Salesman(Integer id, String account, String manName, String hashedPassword, String sex, String phone, Date birthday, String address, String emailAddress,
+    public Salesman(Integer id, String account, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
                     Timestamp createdTime) {
         super(id, account, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
     }

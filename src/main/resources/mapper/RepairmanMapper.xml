@@ -8,7 +8,7 @@
         <result column="profession" jdbcType="VARCHAR" javaType="String" property="profession"/>
         <result column="hour_cost" jdbcType="NUMERIC" javaType="java.math.BigDecimal" property="hourCost"/>
         <result column="hashed_password" jdbcType="VARCHAR" javaType="String" property="hashedPassword"/>
-        <result column="sex" jdbcType="VARCHAR" javaType="String" property="sex"/>
+        <result column="sex" javaType="shuhuai.vehiclerepairer.type.Sex" property="sex" typeHandler="shuhuai.vehiclerepairer.type.SexHandler"/>
         <result column="phone" jdbcType="VARCHAR" javaType="String" property="phone"/>
         <result column="birthday" jdbcType="DATE" javaType="java.sql.Date" property="birthday"/>
         <result column="address" jdbcType="VARCHAR" javaType="String" property="address"/>
@@ -24,7 +24,7 @@
         insert into repairman(account, man_name, profession, hour_cost, hashed_password, sex, phone, birthday, address,
                               email_address, created_time)
         values (#{account,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR},
-                #{hourCost,jdbcType=NUMERIC}, #{hashedPassword,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+                #{hourCost,jdbcType=NUMERIC}, #{hashedPassword,jdbcType=VARCHAR}, #{sex}::sex,
                 #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR},
                 #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
     </insert>
@@ -83,7 +83,7 @@
                 #{hashedPassword,jdbcType=VARCHAR},
             </if>
             <if test="sex != null">
-                #{sex,jdbcType=VARCHAR},
+                #{sex}::sex,
             </if>
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
                 hashed_password= #{hashedPassword,jdbcType=VARCHAR},
             </if>
             <if test="sex != null">
-                sex=#{sex,jdbcType=VARCHAR},
+                sex=#{sex}::sex,
             </if>
             <if test="phone != null">
                 phone=#{phone,jdbcType=VARCHAR},

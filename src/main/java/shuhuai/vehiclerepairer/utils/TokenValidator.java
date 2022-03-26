@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import shuhuai.vehiclerepairer.service.excep.common.TokenExpireException;
+import shuhuai.vehiclerepairer.type.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +28,8 @@ public class TokenValidator implements HandlerInterceptor {
     private final static ThreadLocal<Map<String, String>> threadLocal = new ThreadLocal<>();
 
 
-    public String getToken(String account, String role) {
-        return JWT.create().withClaim("account", account).withClaim("role", role).withClaim("timeStamp", System.currentTimeMillis())
+    public String getToken(String account, Role role) {
+        return JWT.create().withClaim("account", account).withClaim("role", role.getType()).withClaim("timeStamp", System.currentTimeMillis())
                 .sign(Algorithm.HMAC256(privateKey));
     }
 
@@ -56,15 +57,12 @@ public class TokenValidator implements HandlerInterceptor {
         token = token.split(" ")[1];
         Map<String, String> map = parseToken(token);
         String account = map.get("account");
-        String role = map.get("role");
+        Role role = Role.valueOf(map.get("role"));
         long timeOfUse = System.currentTimeMillis() - Long.parseLong(map.get("timeStamp"));
         if (timeOfUse >= yangToken && timeOfUse < oldToken) {
             httpServletResponse.setHeader("Authorization", "Bearer " + getToken(account, role));
         } else if (timeOfUse >= oldToken) {
             throw new TokenExpireException("token过期");
-        }
-        if (!"维修员".equals(role) && !"业务员".equals(role)) {
-            throw new TokenExpireException("token无效");
         }
         setUser(map);
         return true;
