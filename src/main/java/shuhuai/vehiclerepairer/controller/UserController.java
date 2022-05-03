@@ -38,7 +38,7 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response actvie(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
+    public Response<Object> actvie(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
         if (role == Role.维修员) {
             userService.repairmanActive(account, password);
         } else if (role == Role.业务员) {
@@ -46,9 +46,7 @@ public class UserController extends BaseContrller {
         } else {
             throw new ParamsException("参数错误");
         }
-        Response response = new Response(200, "激活成功", null);
-        log.info("/api/user/active：" + response.getMessage());
-        return response;
+        return new Response<>(200, "激活成功", null);
     }
 
     @ApiOperation("登录")
@@ -58,7 +56,7 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 401, message = "账户或密码错误"),
             @ApiResponse(code = 422, message = "参数错误"),
     })
-    public Response login(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
+    public Response<LoginResponse> login(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
         if (role == Role.维修员) {
             userService.repairmanLogin(account, password);
         } else if (role == Role.业务员) {
@@ -67,9 +65,7 @@ public class UserController extends BaseContrller {
             throw new ParamsException("参数错误");
         }
         String token = tokenValidator.getToken(account, role);
-        Response response = new Response(200, "登录成功", new LoginResponse(token));
-        log.info("/api/user/login：" + response.getMessage());
-        return response;
+        return new Response<>(200, "登录成功", new LoginResponse(token));
     }
 
     @ApiOperation("更改个人信息")
@@ -83,7 +79,7 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 401, message = "token无效"),
             @ApiResponse(code = 422, message = "参数错误"),
     })
-    public Response modifyInformation(String manName, Sex sex, String phone, Date birthday, String address, String emailAddress,
+    public Response<Object> modifyInformation(String manName, Sex sex, String phone, Date birthday, String address, String emailAddress,
                                       String profession, BigDecimal hourCost) {
         String account = TokenValidator.getUser().get("account");
         Role role = Role.valueOf(TokenValidator.getUser().get("role"));
@@ -97,8 +93,6 @@ public class UserController extends BaseContrller {
         } else {
             throw new ParamsException("参数错误");
         }
-        Response response = new Response(200, "更改个人信息成功", null);
-        log.info("/api/user/modify-information：" + response.getMessage());
-        return response;
+        return new Response<>(200, "更改个人信息成功", null);
     }
 }

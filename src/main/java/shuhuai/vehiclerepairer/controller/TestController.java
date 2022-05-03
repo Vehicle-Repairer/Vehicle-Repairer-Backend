@@ -25,19 +25,15 @@ public class TestController extends BaseContrller {
 
     @ApiOperation("生成token")
     @RequestMapping(value = "/generate-token", method = RequestMethod.GET)
-    public Response getToken(@RequestParam String account, @RequestParam Role role) {
+    public Response<LoginResponse> getToken(@RequestParam String account, @RequestParam Role role) {
         String token = tokenValidator.getToken(account, role);
-        Response response = new Response(200, "生成成功", new LoginResponse(token));
-        log.info("/api/test/generate-token：" + response.getCode() + "，" + response.getMessage());
-        return response;
+        return new Response<>(200, "生成成功", new LoginResponse(token));
     }
 
     @ApiOperation("认证token")
     @RequestMapping(value = "/validate-token", method = RequestMethod.GET)
-    public Response validateToken(HttpServletRequest request) {
+    public Response<Object> validateToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").split(" ")[1];
-        Response response = new Response(200, "认证成功", tokenValidator.parseToken(token));
-        log.info("/api/test/validate-token：" + response.getCode() + "，" + response.getMessage());
-        return response;
+        return new Response<>(200, "认证成功", tokenValidator.parseToken(token));
     }
 }

@@ -2,10 +2,10 @@ package shuhuai.vehiclerepairer.response;
 
 import java.io.Serializable;
 
-public class Response implements Serializable {
-    private int code;
+public class Response<Type> implements Serializable {
+    private Integer code;
     private String message;
-    private Object data;
+    private Type data;
 
     public Response() {
         code = 0;
@@ -13,7 +13,7 @@ public class Response implements Serializable {
         data = null;
     }
 
-    public Response(int code) {
+    public Response(Integer code) {
         this.code = code;
     }
 
@@ -21,22 +21,22 @@ public class Response implements Serializable {
         this.message = error.getMessage();
     }
 
-    public Response(int code, Object data) {
+    public Response(Integer code, Type data) {
         this.code = code;
         this.data = data;
     }
 
-    public Response(int code, String message, Object data) {
+    public Response(Integer code, String message, Type data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -48,11 +48,11 @@ public class Response implements Serializable {
         this.message = message;
     }
 
-    public Object getData() {
+    public Type getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Type data) {
         this.data = data;
     }
 }

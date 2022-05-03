@@ -21,12 +21,22 @@ import java.util.Map;
 public class TokenValidator implements HandlerInterceptor {
     @Value("${token.privateKey}")
     private String privateKey;
-    @Value("${token.yangToken}")
-    private Long yangToken;
+    @Value("${token.youngToken}")
+    private Long youngToken;
     @Value("${token.oldToken}")
     private Long oldToken;
     private final static ThreadLocal<Map<String, String>> threadLocal = new ThreadLocal<>();
+    public static Map<String, String> getUser() {
+        return threadLocal.get();
+    }
 
+    public static void setUser(Map<String, String> userIdentify) {
+        threadLocal.set(userIdentify);
+    }
+
+    public static void removeUser() {
+        threadLocal.remove();
+    }
 
     public String getToken(String account, Role role) {
         return JWT.create().withClaim("account", account).withClaim("role", role.getType()).withClaim("timeStamp", System.currentTimeMillis())
@@ -59,24 +69,12 @@ public class TokenValidator implements HandlerInterceptor {
         String account = map.get("account");
         Role role = Role.valueOf(map.get("role"));
         long timeOfUse = System.currentTimeMillis() - Long.parseLong(map.get("timeStamp"));
-        if (timeOfUse >= yangToken && timeOfUse < oldToken) {
+        if (timeOfUse >= youngToken && timeOfUse < oldToken) {
             httpServletResponse.setHeader("Authorization", "Bearer " + getToken(account, role));
         } else if (timeOfUse >= oldToken) {
             throw new TokenExpireException("token过期");
         }
         setUser(map);
         return true;
-    }
-
-    public static void setUser(Map<String, String> userIdentify) {
-        threadLocal.set(userIdentify);
-    }
-
-    public static Map<String, String> getUser() {
-        return threadLocal.get();
-    }
-
-    public static void removeUser() {
-        threadLocal.remove();
     }
 }

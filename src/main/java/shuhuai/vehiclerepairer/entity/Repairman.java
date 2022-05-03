@@ -1,9 +1,6 @@
 package shuhuai.vehiclerepairer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
@@ -15,6 +12,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Repairman extends BaseMan implements Serializable {
     private String profession;
     private BigDecimal hourCost;
@@ -28,9 +26,5 @@ public class Repairman extends BaseMan implements Serializable {
         super(id, account, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
         this.profession = profession;
         this.hourCost = hourCost;
-    }
-
-    public String toString() {
-        return "Repairman{" + super.toString() + "profession='" + profession + '\'' + ", hourCost=" + '}';
     }
 }

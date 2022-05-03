@@ -1,0 +1,19 @@
+{
+    "properties": [
+        {
+            "name": "token.youngToken",
+            "type": "java.lang.String",
+            "description": "年轻的token"
+        },
+        {
+            "name": "token.privateKey",
+            "type": "java.lang.String",
+            "description": "私钥"
+        },
+        {
+            "name": "token.oldToken",
+            "type": "java.lang.String",
+            "description": "老的token"
+        }
+    ]
+}

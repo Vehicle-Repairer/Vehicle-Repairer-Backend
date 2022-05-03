@@ -13,9 +13,8 @@ import shuhuai.vehiclerepairer.service.excep.user.AccountPasswordErrorException;
 @Slf4j
 public class BaseContrller {
     @ExceptionHandler(BaseException.class)
-    public Response handleServiceException(BaseException e) {
-        Response response = new Response();
-        log.error(e.getStackTrace()[0] + "：" + e.getMessage());
+    public Response<Object> handleServiceException(BaseException e) {
+        Response<Object> response = new Response<>();
         if (e instanceof AccountDuplicatedException) {
             response.setCode(400);
         } else if (e instanceof AccountPasswordErrorException | e instanceof TokenExpireException) {
