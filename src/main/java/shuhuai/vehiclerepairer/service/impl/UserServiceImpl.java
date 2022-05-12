@@ -1,6 +1,5 @@
 package shuhuai.vehiclerepairer.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.entity.Salesman;
@@ -20,7 +19,6 @@ import javax.annotation.Resource;
  @version 1.0
  */
 @Service
-@Slf4j
 public class UserServiceImpl implements UserService {
     @Resource
     RepairmanMapper repairmanMapper;
@@ -37,7 +35,7 @@ public class UserServiceImpl implements UserService {
             throw new IdDuplicatedException("账户已激活");
         }
         Repairman repairman = new Repairman(id, hashedPassword);
-        int result = repairmanMapper.insertRepairmanSelective(repairman);
+        Integer result = repairmanMapper.insertRepairmanSelective(repairman);
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
@@ -57,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void repairmanModifyInformation(Repairman repairman) {
-        int result = repairmanMapper.updateRepairmanSelectiveById(repairman);
+        Integer result = repairmanMapper.updateRepairmanSelectiveById(repairman);
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
@@ -73,7 +71,7 @@ public class UserServiceImpl implements UserService {
             throw new IdDuplicatedException("账户已激活");
         }
         Salesman salesman = new Salesman(id, hashedPassword);
-        int result = salesmanMapper.insertSalesmanSelective(salesman);
+        Integer result = salesmanMapper.insertSalesmanSelective(salesman);
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
@@ -93,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void salesmanModifyInformation(Salesman salesman) {
-        int result = salesmanMapper.updateSalesmanSelectiveById(salesman);
+        Integer result = salesmanMapper.updateSalesmanSelectiveById(salesman);
         if (result != 1) {
             throw new ServerException("服务器错误");
         }

@@ -23,8 +23,7 @@ import java.sql.Date;
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户管理")
-@Slf4j
-public class UserController extends BaseContrller {
+public class UserController extends BaseController {
     @Resource
     private UserService userService;
     @Resource

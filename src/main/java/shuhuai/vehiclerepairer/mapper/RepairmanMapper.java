@@ -5,11 +5,11 @@ import shuhuai.vehiclerepairer.entity.Repairman;
 
 @Mapper
 public interface RepairmanMapper {
-    int insertRepairman(Repairman repairman);
+    Integer insertRepairman(Repairman repairman);
 
-    int insertRepairmanSelective(Repairman repairman);
+    Integer insertRepairmanSelective(Repairman repairman);
 
-    int updateRepairmanSelectiveById(Repairman repairman);
+    Integer updateRepairmanSelectiveById(Repairman repairman);
 
     Repairman selectRepairmanById(String id);
 }

@@ -18,8 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/test")
 @Api(tags = "测试")
-@Slf4j
-public class TestController extends BaseContrller {
+public class TestController extends BaseController {
     @Resource
     TokenValidator tokenValidator;
 
