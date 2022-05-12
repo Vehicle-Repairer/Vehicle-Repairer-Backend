@@ -9,13 +9,6 @@ public enum Sex {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
     public static Sex getSexEnum(String type) {
         if (type.equals("男")) {
             return 男;
@@ -23,5 +16,13 @@ public enum Sex {
             return 女;
         }
         return null;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

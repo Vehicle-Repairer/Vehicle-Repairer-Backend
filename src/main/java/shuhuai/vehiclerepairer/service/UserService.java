@@ -15,7 +15,7 @@ public interface UserService {
     /**
      * 维修员激活
      *
-     * @param id  用户账号
+     * @param id       用户账号
      * @param password 用户密码
      */
     void repairmanActive(String id, String password) throws IdDuplicatedException, ParamsException, ServerException;
@@ -23,7 +23,7 @@ public interface UserService {
     /**
      * 维修员登录
      *
-     * @param id  用户账号
+     * @param id       用户账号
      * @param password 用户密码
      */
     void repairmanLogin(String id, String password) throws ParamsException, IdPasswordErrorException;
@@ -33,7 +33,7 @@ public interface UserService {
     /**
      * 业务员激活
      *
-     * @param id  用户账号
+     * @param id       用户账号
      * @param password 用户密码
      */
     void salesmanActive(String id, String password) throws IdDuplicatedException, ParamsException, ServerException;
@@ -41,7 +41,7 @@ public interface UserService {
     /**
      * 业务员登录
      *
-     * @param id  用户账号
+     * @param id       用户账号
      * @param password 用户密码
      */
     void salesmanLogin(String id, String password) throws ParamsException, IdPasswordErrorException;

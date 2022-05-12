@@ -9,13 +9,6 @@ public enum Role {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
     public static Role getRoleEnum(String type) {
         if (type.equals("维修员")) {
             return 维修员;
@@ -23,5 +16,13 @@ public enum Role {
             return 业务员;
         }
         return null;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

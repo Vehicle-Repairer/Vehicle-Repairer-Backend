@@ -20,13 +20,14 @@ import java.util.Map;
 
 @Component
 public class TokenValidator implements HandlerInterceptor {
+    private final static ThreadLocal<Map<String, String>> threadLocal = new ThreadLocal<>();
     @Value("${token.privateKey}")
     private String privateKey;
     @Value("${token.youngToken}")
     private Long youngToken;
     @Value("${token.oldToken}")
     private Long oldToken;
-    private final static ThreadLocal<Map<String, String>> threadLocal = new ThreadLocal<>();
+
     public static Map<String, String> getUser() {
         return threadLocal.get();
     }
