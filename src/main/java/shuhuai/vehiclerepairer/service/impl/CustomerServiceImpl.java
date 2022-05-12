@@ -7,7 +7,6 @@ import shuhuai.vehiclerepairer.service.CustomerService;
 import shuhuai.vehiclerepairer.service.excep.common.ForbiddenException;
 import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
 import shuhuai.vehiclerepairer.service.excep.common.ServerException;
-import shuhuai.vehiclerepairer.service.excep.common.TokenExpireException;
 import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
@@ -40,5 +39,20 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ServerException("服务器错误");
         }
         return customer.getCustomerId();
+    }
+
+    @Override
+    public Customer getCustomer(Integer customerId) {
+        Map<String, String> user = TokenValidator.getUser();
+        if (user != null) {
+            Role role = Role.valueOf(user.get("role"));
+            if (role != Role.业务员) {
+                throw new ForbiddenException("权限不足");
+            }
+        }
+        if (customerId == null) {
+            throw new ParamsException("参数错误");
+        }
+        return customerMapper.selectCustomerByCustomerId(customerId);
     }
 }

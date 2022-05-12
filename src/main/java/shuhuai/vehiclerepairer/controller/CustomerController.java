@@ -40,7 +40,19 @@ public class CustomerController extends BaseController {
         }});
     }
 
-    @ApiOperation("登记客户信息")
+    @ApiOperation("获取客户信息")
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "获取客户信息成功"),
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+    public Response<Object> getCustomer(@RequestParam Integer customerId) {
+        return new Response<>(200, "获取客户信息成功", customerService.getCustomer(customerId));
+    }
+
+    @ApiOperation("记录客户车辆信息")
     @RequestMapping(value = "/add-vehicle", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "记录客户车辆信息成功"),

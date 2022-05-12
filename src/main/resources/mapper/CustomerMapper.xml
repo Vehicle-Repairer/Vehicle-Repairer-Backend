@@ -77,7 +77,7 @@
         </set>
         where customer_id = #{customerId,jdbcType=INTEGER}
     </update>
-    <select id="selectRepairmanByCustomerId" resultType="shuhuai.vehiclerepairer.entity.Repairman">
+    <select id="selectCustomerByCustomerId" resultType="shuhuai.vehiclerepairer.entity.Customer">
         select *
         from customer
         where customer_id = #{customerId,jdbcType=INTEGER}
