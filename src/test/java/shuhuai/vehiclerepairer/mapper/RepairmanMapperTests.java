@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import shuhuai.vehiclerepairer.entity.Repairman;
+import shuhuai.vehiclerepairer.utils.Hashing;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -23,17 +24,17 @@ public class RepairmanMapperTests {
 
     @Test
     public void testInsertRepairman() {
-        String account = "lvzhihe_123@qq.com";
-        String hashedPassword = "hashedprwq0421";
-        Repairman repairman = new Repairman(account, hashedPassword);
+        String id = "19120176";
+        String hashedPassword = Hashing.getHashedString("prwq0421");
+        Repairman repairman = new Repairman(id, hashedPassword);
         int rows = repairmanMapper.insertRepairmanSelective(repairman);
         log.info("插入" + rows + "行维修员数据：" + repairman + "。");
     }
 
     @Test
     public void testSelectRepairmanById() {
-        String account = "lvzhihe_123@qq.com";
-        Repairman repairman = repairmanMapper.selectRepairmanByAccount(account);
-        log.info("查询维修员" + account + "数据：" + Objects.requireNonNullElse(repairman, "没有查询到维修员数据"));
+        String id = "19120176";
+        Repairman repairman = repairmanMapper.selectRepairmanById(id);
+        log.info("查询维修员" + id + "数据：" + Objects.requireNonNullElse(repairman, "没有查询到维修员数据"));
     }
 }

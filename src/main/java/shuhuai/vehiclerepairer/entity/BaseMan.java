@@ -3,6 +3,7 @@ package shuhuai.vehiclerepairer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
@@ -12,9 +13,9 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BaseMan implements Serializable {
-    private Integer id;
-    private String account;
+    private String id;
     private String manName;
     private String hashedPassword;
     private Sex sex;
@@ -24,17 +25,17 @@ public class BaseMan implements Serializable {
     private String emailAddress;
     private Timestamp createdTime;
 
-    public BaseMan(String account, String hashPassword) {
-        this.account = account;
+    public BaseMan(String id, String hashPassword) {
+        this.id = id;
         this.hashedPassword = hashPassword;
     }
 
-    public String getAccount() {
-        return account;
+    public String getId() {
+        return id;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Timestamp getCreatedTime() {
@@ -45,13 +46,6 @@ public class BaseMan implements Serializable {
         this.createdTime = createdTime;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getManName() {
         return manName;
@@ -107,10 +101,5 @@ public class BaseMan implements Serializable {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public String toString() {
-        return "BaseMan{" + "id=" + id + ", manName='" + manName + '\'' + ", hashedPassword='" + hashedPassword + '\'' + ", account='" + account + '\'' +
-                ", phone='" + phone + '\'' + ", birthday=" + birthday + ", sex=" + sex + ", address='" + address + '\'' + ", emailAddress='" + emailAddress + '\'' + '}';
     }
 }

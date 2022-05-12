@@ -9,9 +9,7 @@ public interface RepairmanMapper {
 
     int insertRepairmanSelective(Repairman repairman);
 
-    int deleteRepairmanById(int id);
+    int updateRepairmanSelectiveById(Repairman repairman);
 
-    int updateRepairmanSelectiveByAccount(Repairman repairman);
-
-    Repairman selectRepairmanByAccount(String account);
+    Repairman selectRepairmanById(String id);
 }

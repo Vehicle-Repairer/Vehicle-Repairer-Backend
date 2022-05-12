@@ -9,9 +9,7 @@ public interface SalesmanMapper {
 
     int insertSalesmanSelective(Salesman salesman);
 
-    int deleteSalesmanById(int id);
+    int updateSalesmanSelectiveById(Salesman salesman);
 
-    int updateSalesmanSelectiveByAccount(Salesman salesman);
-
-    Salesman selectSalesmanByAccount(String account);
+    Salesman selectSalesmanById(String id);
 }

@@ -17,13 +17,13 @@ public class Repairman extends BaseMan implements Serializable {
     private String profession;
     private BigDecimal hourCost;
 
-    public Repairman(String account, String hashedPassword) {
-        super(account, hashedPassword);
+    public Repairman(String id, String hashedPassword) {
+        super(id, hashedPassword);
     }
 
-    public Repairman(Integer id, String account, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
+    public Repairman(String id, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
                      Timestamp createdTime, String profession, BigDecimal hourCost) {
-        super(id, account, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
+        super(id, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
         this.profession = profession;
         this.hourCost = hourCost;
     }

@@ -15,12 +15,12 @@ import java.sql.Timestamp;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class Salesman extends BaseMan implements Serializable {
-    public Salesman(String account, String hashedPassword) {
-        super(account, hashedPassword);
+    public Salesman(String id, String hashedPassword) {
+        super(id, hashedPassword);
     }
 
-    public Salesman(Integer id, String account, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
+    public Salesman(String id, String manName, String hashedPassword, Sex sex, String phone, Date birthday, String address, String emailAddress,
                     Timestamp createdTime) {
-        super(id, account, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
+        super(id, manName, hashedPassword, sex, phone, birthday, address, emailAddress, createdTime);
     }
 }

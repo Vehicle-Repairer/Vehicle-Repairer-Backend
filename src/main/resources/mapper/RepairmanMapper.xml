@@ -2,38 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shuhuai.vehiclerepairer.mapper.RepairmanMapper">
     <resultMap id="RepairmanResultMap" type="shuhuai.vehiclerepairer.entity.Repairman">
-        <id column="id" jdbcType="INTEGER" javaType="int" property="id"/>
-        <result column="account" jdbcType="VARCHAR" javaType="String" property="account"/>
+        <id column="id" jdbcType="VARCHAR" javaType="String" property="id"/>
         <result column="man_name" jdbcType="VARCHAR" javaType="String" property="manName"/>
         <result column="profession" jdbcType="VARCHAR" javaType="String" property="profession"/>
         <result column="hour_cost" jdbcType="NUMERIC" javaType="java.math.BigDecimal" property="hourCost"/>
         <result column="hashed_password" jdbcType="VARCHAR" javaType="String" property="hashedPassword"/>
-        <result column="sex" javaType="shuhuai.vehiclerepairer.type.Sex" property="sex" typeHandler="shuhuai.vehiclerepairer.type.SexHandler"/>
+        <result column="sex" javaType="shuhuai.vehiclerepairer.type.Sex" property="sex"
+                typeHandler="shuhuai.vehiclerepairer.type.SexHandler"/>
         <result column="phone" jdbcType="VARCHAR" javaType="String" property="phone"/>
         <result column="birthday" jdbcType="DATE" javaType="java.sql.Date" property="birthday"/>
         <result column="address" jdbcType="VARCHAR" javaType="String" property="address"/>
         <result column="email_address" jdbcType="VARCHAR" javaType="String" property="emailAddress"/>
         <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
     </resultMap>
-    <sql id="column_list">
-        id, account, man_name, profession, hour_cost, hashed_password, sex, phone, birthday, address, email_address,
-        created_time
-    </sql>
-    <insert id="insertRepairman" useGeneratedKeys="true" keyProperty="id"
-            parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        insert into repairman(account, man_name, profession, hour_cost, hashed_password, sex, phone, birthday, address,
+    <insert id="insertRepairman" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
+        insert into repairman(id, man_name, profession, hour_cost, hashed_password, sex, phone, birthday, address,
                               email_address, created_time)
-        values (#{account,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR},
+        values (#{id,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR},
                 #{hourCost,jdbcType=NUMERIC}, #{hashedPassword,jdbcType=VARCHAR}, #{sex}::sex,
                 #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR},
                 #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertRepairmanSelective" useGeneratedKeys="true" keyProperty="id"
-            parameterType="shuhuai.vehiclerepairer.entity.Repairman">
+    <insert id="insertRepairmanSelective" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
         insert into repairman
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="account != null">
-                account,
+            <if test="id != null">
+                id,
             </if>
             <if test="manName != null">
                 man_name,
@@ -67,8 +61,8 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="account != null">
-                #{account,jdbcType=VARCHAR},
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
             </if>
             <if test="manName != null">
                 #{manName,jdbcType=VARCHAR},
@@ -102,12 +96,9 @@
             </if>
         </trim>
     </insert>
-    <update id="updateRepairmanSelectiveByAccount" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
+    <update id="updateRepairmanSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
         update repairman
         <set>
-            <if test="id != null">
-                id = #{id,jdbcType=INTEGER},
-            </if>
             <if test="manName != null">
                 man_name=#{manName,jdbcType=VARCHAR},
             </if>
@@ -139,12 +130,11 @@
                 created_time=#{createdTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where account = #{account,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
     </update>
-    <select id="selectRepairmanByAccount" resultType="shuhuai.vehiclerepairer.entity.Repairman">
-        select
-        <include refid="column_list"/>
+    <select id="selectRepairmanById" resultType="shuhuai.vehiclerepairer.entity.Repairman">
+        select *
         from repairman
-        where account=#{account,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
     </select>
 </mapper>

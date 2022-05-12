@@ -6,8 +6,8 @@ import shuhuai.vehiclerepairer.service.excep.BaseException;
  * @author 殊怀丶
  * @version 1.0
  */
-public class AccountDuplicatedException extends BaseException {
-    public AccountDuplicatedException(String message) {
+public class IdDuplicatedException extends BaseException {
+    public IdDuplicatedException(String message) {
         super(message);
     }
 }

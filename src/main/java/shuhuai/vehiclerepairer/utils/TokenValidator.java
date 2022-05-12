@@ -38,18 +38,18 @@ public class TokenValidator implements HandlerInterceptor {
         threadLocal.remove();
     }
 
-    public String getToken(String account, Role role) {
-        return JWT.create().withClaim("account", account).withClaim("role", role.getType()).withClaim("timeStamp", System.currentTimeMillis())
+    public String getToken(String id, Role role) {
+        return JWT.create().withClaim("id", id).withClaim("role", role.getType()).withClaim("timeStamp", System.currentTimeMillis())
                 .sign(Algorithm.HMAC256(privateKey));
     }
 
     public Map<String, String> parseToken(String token) {
         HashMap<String, String> map = new HashMap<>();
         DecodedJWT decodedjwt = JWT.require(Algorithm.HMAC256(privateKey)).build().verify(token);
-        Claim account = decodedjwt.getClaim("account");
+        Claim id = decodedjwt.getClaim("id");
         Claim role = decodedjwt.getClaim("role");
         Claim timeStamp = decodedjwt.getClaim("timeStamp");
-        map.put("account", account.asString());
+        map.put("id", id.asString());
         map.put("role", role.asString());
         map.put("timeStamp", timeStamp.asLong().toString());
         return map;
@@ -66,11 +66,11 @@ public class TokenValidator implements HandlerInterceptor {
         }
         token = token.split(" ")[1];
         Map<String, String> map = parseToken(token);
-        String account = map.get("account");
+        String id = map.get("id");
         Role role = Role.valueOf(map.get("role"));
         long timeOfUse = System.currentTimeMillis() - Long.parseLong(map.get("timeStamp"));
         if (timeOfUse >= youngToken && timeOfUse < oldToken) {
-            httpServletResponse.setHeader("Authorization", "Bearer " + getToken(account, role));
+            httpServletResponse.setHeader("Authorization", "Bearer " + getToken(id, role));
         } else if (timeOfUse >= oldToken) {
             throw new TokenExpireException("token过期");
         }

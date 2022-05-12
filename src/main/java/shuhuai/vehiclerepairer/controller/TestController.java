@@ -25,8 +25,8 @@ public class TestController extends BaseContrller {
 
     @ApiOperation("生成token")
     @RequestMapping(value = "/generate-token", method = RequestMethod.GET)
-    public Response<LoginResponse> getToken(@RequestParam String account, @RequestParam Role role) {
-        String token = tokenValidator.getToken(account, role);
+    public Response<LoginResponse> getToken(@RequestParam String id, @RequestParam Role role) {
+        String token = tokenValidator.getToken(id, role);
         return new Response<>(200, "生成成功", new LoginResponse(token));
     }
 

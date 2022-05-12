@@ -38,11 +38,11 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> actvie(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
+    public Response<Object> actvie(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
         if (role == Role.维修员) {
-            userService.repairmanActive(account, password);
+            userService.repairmanActive(id, password);
         } else if (role == Role.业务员) {
-            userService.salesmanActive(account, password);
+            userService.salesmanActive(id, password);
         } else {
             throw new ParamsException("参数错误");
         }
@@ -56,15 +56,15 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 401, message = "账户或密码错误"),
             @ApiResponse(code = 422, message = "参数错误"),
     })
-    public Response<LoginResponse> login(@RequestParam Role role, @RequestParam String account, @RequestParam String password) {
+    public Response<LoginResponse> login(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
         if (role == Role.维修员) {
-            userService.repairmanLogin(account, password);
+            userService.repairmanLogin(id, password);
         } else if (role == Role.业务员) {
-            userService.salesmanLogin(account, password);
+            userService.salesmanLogin(id, password);
         } else {
             throw new ParamsException("参数错误");
         }
-        String token = tokenValidator.getToken(account, role);
+        String token = tokenValidator.getToken(id, role);
         return new Response<>(200, "登录成功", new LoginResponse(token));
     }
 
@@ -80,15 +80,15 @@ public class UserController extends BaseContrller {
             @ApiResponse(code = 422, message = "参数错误"),
     })
     public Response<Object> modifyInformation(String manName, Sex sex, String phone, Date birthday, String address, String emailAddress,
-                                      String profession, BigDecimal hourCost) {
-        String account = TokenValidator.getUser().get("account");
+                                              String profession, BigDecimal hourCost) {
+        String id = TokenValidator.getUser().get("id");
         Role role = Role.valueOf(TokenValidator.getUser().get("role"));
         if (role == Role.维修员) {
-            Repairman repairman = new Repairman(null, account, manName, null, sex, phone, birthday, address, emailAddress, null,
+            Repairman repairman = new Repairman(id, manName, null, sex, phone, birthday, address, emailAddress, null,
                     profession, hourCost);
             userService.repairmanModifyInformation(repairman);
         } else if (role == Role.业务员) {
-            Salesman salesman = new Salesman(null, account, manName, null, sex, phone, birthday, address, emailAddress, null);
+            Salesman salesman = new Salesman(id, manName, null, sex, phone, birthday, address, emailAddress, null);
             userService.salesmanModifyInformation(salesman);
         } else {
             throw new ParamsException("参数错误");

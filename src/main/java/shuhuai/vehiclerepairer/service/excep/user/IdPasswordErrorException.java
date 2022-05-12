@@ -2,8 +2,8 @@ package shuhuai.vehiclerepairer.service.excep.user;
 
 import shuhuai.vehiclerepairer.service.excep.BaseException;
 
-public class AccountPasswordErrorException extends BaseException {
-    public AccountPasswordErrorException(String message) {
+public class IdPasswordErrorException extends BaseException {
+    public IdPasswordErrorException(String message) {
         super(message);
     }
 }

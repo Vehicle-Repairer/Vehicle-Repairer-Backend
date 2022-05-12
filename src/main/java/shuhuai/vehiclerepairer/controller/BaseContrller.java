@@ -7,17 +7,17 @@ import shuhuai.vehiclerepairer.service.excep.BaseException;
 import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
 import shuhuai.vehiclerepairer.service.excep.common.ServerException;
 import shuhuai.vehiclerepairer.service.excep.common.TokenExpireException;
-import shuhuai.vehiclerepairer.service.excep.user.AccountDuplicatedException;
-import shuhuai.vehiclerepairer.service.excep.user.AccountPasswordErrorException;
+import shuhuai.vehiclerepairer.service.excep.user.IdDuplicatedException;
+import shuhuai.vehiclerepairer.service.excep.user.IdPasswordErrorException;
 
 @Slf4j
 public class BaseContrller {
     @ExceptionHandler(BaseException.class)
     public Response<Object> handleServiceException(BaseException e) {
         Response<Object> response = new Response<>();
-        if (e instanceof AccountDuplicatedException) {
+        if (e instanceof IdDuplicatedException) {
             response.setCode(400);
-        } else if (e instanceof AccountPasswordErrorException | e instanceof TokenExpireException) {
+        } else if (e instanceof IdPasswordErrorException | e instanceof TokenExpireException) {
             response.setCode(401);
         } else if (e instanceof ParamsException) {
             response.setCode(422);

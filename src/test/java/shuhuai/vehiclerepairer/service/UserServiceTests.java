@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import shuhuai.vehiclerepairer.service.excep.BaseException;
+import shuhuai.vehiclerepairer.utils.Hashing;
 
 import javax.annotation.Resource;
 
@@ -22,13 +23,13 @@ public class UserServiceTests {
 
     @Test
     public void testRepairmanRegister() {
-        String account = "lvzhihe_123@qq.com";
+        String id = "19120176";
         String password = "prwq0421";
         try {
-            userService.repairmanActive(account, password);
+            userService.repairmanActive(id, password);
         } catch (BaseException error) {
             log.error("错误：" + error.getMessage());
         }
-        log.info("插入" + account + "维修员数据成功。");
+        log.info("插入" + id + "维修员数据成功。");
     }
 }
