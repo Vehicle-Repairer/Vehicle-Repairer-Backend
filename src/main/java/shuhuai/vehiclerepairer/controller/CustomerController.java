@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shuhuai.vehiclerepairer.entity.Customer;
+import shuhuai.vehiclerepairer.entity.Vehicle;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.CustomerService;
 import shuhuai.vehiclerepairer.service.VehicleService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -68,5 +70,20 @@ public class CustomerController extends BaseController {
                                        @RequestParam String color, @RequestParam String vehicleModel, @RequestParam String vehicleType) {
         vehicleService.addVehicle(frameNumber, licenseNumber, customerId, color, vehicleModel, vehicleType);
         return new Response<>(200, "记录客户车辆信息成功", null);
+    }
+
+    @ApiOperation("获取客户车辆信息")
+    @RequestMapping(value = "/vehicle", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "获取客户车辆信息成功"),
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+    public Response<Object> getVehicle(@RequestParam Integer customerId) {
+        List<Vehicle> vehicles = vehicleService.getVehicleByCustomerId(customerId);
+        return new Response<>(200, "获取客户车辆信息成功", new HashMap<String, List<Vehicle>>() {{
+            put("vehicles", vehicles);
+        }});
     }
 }

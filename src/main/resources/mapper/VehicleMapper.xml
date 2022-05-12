@@ -79,4 +79,9 @@
         from vehicle
         where frame_number = #{frameNumber,jdbcType=VARCHAR}
     </select>
+    <select id="selectVehicleByCustomerId" resultType="shuhuai.vehiclerepairer.entity.Vehicle">
+        select *
+        from vehicle
+        where customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
 </mapper>

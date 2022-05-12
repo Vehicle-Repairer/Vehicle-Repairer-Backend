@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import shuhuai.vehiclerepairer.service.excep.common.ForbiddenException;
 import shuhuai.vehiclerepairer.service.excep.common.TokenExpireException;
 import shuhuai.vehiclerepairer.type.Role;
 
@@ -36,6 +37,16 @@ public class TokenValidator implements HandlerInterceptor {
 
     public static void removeUser() {
         threadLocal.remove();
+    }
+
+    public static void checkRole(Role role) {
+        Map<String, String> user = getUser();
+        if (user != null) {
+            Role curRole = Role.valueOf(user.get("role"));
+            if (curRole != role) {
+                throw new ForbiddenException("权限不足");
+            }
+        }
     }
 
     public String getToken(String id, Role role) {

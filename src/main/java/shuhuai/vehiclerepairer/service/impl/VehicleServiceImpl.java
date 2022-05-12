@@ -4,13 +4,12 @@ import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Vehicle;
 import shuhuai.vehiclerepairer.mapper.VehicleMapper;
 import shuhuai.vehiclerepairer.service.VehicleService;
-import shuhuai.vehiclerepairer.service.excep.common.ForbiddenException;
 import shuhuai.vehiclerepairer.service.excep.common.ServerException;
 import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -19,13 +18,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void addVehicle(String frameNumber, String licenseNumber, Integer customerId, String color, String vehicleModel, String vehicleType) {
-        Map<String, String> user = TokenValidator.getUser();
-        if (user != null) {
-            Role role = Role.valueOf(user.get("role"));
-            if (role != Role.业务员) {
-                throw new ForbiddenException("权限不足");
-            }
-        }
+        TokenValidator.checkRole(Role.业务员);
         if (frameNumber == null || licenseNumber == null || customerId == null || color == null || vehicleModel == null || vehicleType == null) {
             throw new IllegalArgumentException("参数错误");
         }
@@ -39,5 +32,14 @@ public class VehicleServiceImpl implements VehicleService {
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
+    }
+
+    @Override
+    public List<Vehicle> getVehicleByCustomerId(Integer customerId) {
+        TokenValidator.checkRole(Role.业务员);
+        if (customerId == null) {
+            throw new IllegalArgumentException("参数错误");
+        }
+        return vehicleMapper.selectVehicleByCustomerId(customerId);
     }
 }
