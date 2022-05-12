@@ -9,24 +9,18 @@ import shuhuai.vehiclerepairer.service.excep.BaseException;
 
 import javax.annotation.Resource;
 
-/*** 用户服务测试类
- @author 殊怀丶
- @version 1.0
- */
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserServiceTests {
+public class VehicleServiceTests {
     @Resource
-    UserService userService;
+    VehicleService vehicleService;
 
     @Test
-    public void testRepairmanRegister() {
-        String id = "19120176";
-        String password = "prwq0421";
+    public void testAddCustomer() {
         try {
-            userService.repairmanActive(id, password);
-            log.info("插入" + id + "维修员数据成功。");
+            vehicleService.addVehicle("123456", "120765", 3, "白色", "帕萨特", "微型车");
+            log.info("记录客户车辆信息成功。");
         } catch (BaseException error) {
             log.error(error.getMessage());
         }

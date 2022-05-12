@@ -11,7 +11,7 @@ import java.io.Serializable;
 @ToString
 public class Vehicle implements Serializable {
     private String frameNumber;
-    private String licensNumber;
+    private String licenseNumber;
     private Integer customerId;
     private String color;
     private String vehicleModel;
@@ -25,12 +25,12 @@ public class Vehicle implements Serializable {
         this.frameNumber = frameNumber;
     }
 
-    public String getLicensNumber() {
-        return licensNumber;
+    public String getLicenseNumber() {
+        return licenseNumber;
     }
 
-    public void setLicensNumber(String licensNumber) {
-        this.licensNumber = licensNumber;
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
     }
 
     public Integer getCustomerId() {
@@ -39,5 +39,21 @@ public class Vehicle implements Serializable {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 }

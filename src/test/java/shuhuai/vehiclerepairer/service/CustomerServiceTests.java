@@ -18,11 +18,12 @@ public class CustomerServiceTests {
 
     @Test
     public void testAddCustomer() {
+        Integer customerId;
         try {
-            customerService.addCustomer("吕陟赫", "个人", 10.1, "吕陟赫", "15221181692");
+            customerId = customerService.addCustomer("杨浩东公司", "单位", 95., "杨浩东", "82638779");
+            log.info("登记客户信息成功" + customerId.toString() + "。");
         } catch (BaseException error) {
             log.error("错误：" + error.getMessage());
         }
-        log.info("登记客户信息成功。");
     }
 }

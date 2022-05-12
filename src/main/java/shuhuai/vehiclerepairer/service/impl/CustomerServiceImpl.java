@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerMapper customerMapper;
 
     @Override
-    public void addCustomer(String customerName, String customerType, Double discountRate, String contactPerson, String phone) {
+    public Integer addCustomer(String customerName, String customerType, Double discountRate, String contactPerson, String phone) {
         Map<String, String> user = TokenValidator.getUser();
         if (user != null) {
             Role role = Role.valueOf(user.get("role"));
@@ -39,5 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
+        return customer.getCustomerId();
     }
 }
