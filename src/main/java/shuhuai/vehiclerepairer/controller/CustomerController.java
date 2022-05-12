@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import shuhuai.vehiclerepairer.entity.Customer;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.CustomerService;
 import shuhuai.vehiclerepairer.service.VehicleService;
@@ -49,7 +50,10 @@ public class CustomerController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
     public Response<Object> getCustomer(@RequestParam Integer customerId) {
-        return new Response<>(200, "获取客户信息成功", customerService.getCustomer(customerId));
+        Customer customer = customerService.getCustomer(customerId);
+        return new Response<>(200, "获取客户信息成功", new HashMap<String, Object>() {{
+            put("customer", customer);
+        }});
     }
 
     @ApiOperation("记录客户车辆信息")
