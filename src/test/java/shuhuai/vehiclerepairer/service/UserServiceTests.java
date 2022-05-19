@@ -25,7 +25,7 @@ public class UserServiceTests {
         String id = "19120176";
         String password = "prwq0421";
         try {
-            userService.repairmanActive(id, password);
+            userService.repairmanActive(id, password, "程序员");
             log.info("插入" + id + "维修员数据成功。");
         } catch (BaseException error) {
             log.error(error.getMessage());
