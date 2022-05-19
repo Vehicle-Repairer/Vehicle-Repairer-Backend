@@ -15,16 +15,8 @@
         <result column="email_address" jdbcType="VARCHAR" javaType="String" property="emailAddress"/>
         <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
     </resultMap>
-    <insert id="insertRepairman" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        insert into repairman(id, man_name, profession, hour_cost, hashed_password, sex, phone, birthday, address,
-                              email_address, created_time)
-        values (#{id,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR},
-                #{hourCost,jdbcType=NUMERIC}, #{hashedPassword,jdbcType=VARCHAR}, #{sex}::sex,
-                #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR},
-                #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
-    </insert>
     <insert id="insertRepairmanSelective" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        insert into repairman
+        insert into vehicle_repairer.public.repairman
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -97,7 +89,7 @@
         </trim>
     </insert>
     <update id="updateRepairmanSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        update repairman
+        update vehicle_repairer.public.repairman
         <set>
             <if test="manName != null">
                 man_name=#{manName,jdbcType=VARCHAR},
@@ -134,7 +126,12 @@
     </update>
     <select id="selectRepairmanById" resultType="shuhuai.vehiclerepairer.entity.Repairman">
         select *
-        from repairman
+        from vehicle_repairer.public.repairman
         where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectRepairmanByPro" resultType="shuhuai.vehiclerepairer.entity.Repairman">
+        select *
+        from vehicle_repairer.public.repairman
+        where profession = #{id,jdbcType=VARCHAR}
     </select>
 </mapper>

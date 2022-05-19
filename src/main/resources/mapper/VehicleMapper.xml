@@ -11,7 +11,7 @@
     </resultMap>
     <insert id="insertVehicleSelective" keyProperty="frameNumber"
             parameterType="shuhuai.vehiclerepairer.entity.Vehicle">
-        insert into vehicle
+        insert into vehicle_repairer.public.vehicle
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="frameNumber != null">
                 frame_number,

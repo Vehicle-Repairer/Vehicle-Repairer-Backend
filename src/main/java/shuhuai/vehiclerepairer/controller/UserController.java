@@ -36,7 +36,7 @@ public class UserController extends BaseController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> actvie(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
+    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
         if (role == Role.维修员) {
             userService.repairmanActive(id, password);
         } else if (role == Role.业务员) {

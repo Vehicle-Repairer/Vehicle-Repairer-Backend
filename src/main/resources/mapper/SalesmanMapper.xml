@@ -21,7 +21,7 @@
                 #{address,jdbcType=VARCHAR}, #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSalesmanSelective" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Salesman">
-        insert into salesman
+        insert into vehicle_repairer.public.salesman
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
