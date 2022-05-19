@@ -7,7 +7,6 @@ import lombok.ToString;
 import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data

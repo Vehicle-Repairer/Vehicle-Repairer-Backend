@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shuhuai.vehiclerepairer.mapper.PartsMapper">
-    <resultMap id="CustomerResultMap" type="shuhuai.vehiclerepairer.entity.Parts">
+    <resultMap id="PartsResultMap" type="shuhuai.vehiclerepairer.entity.Parts">
         <id column="part_id" jdbcType="INTEGER" javaType="Integer" property="partId"/>
         <result column="part_name" jdbcType="VARCHAR" javaType="String" property="partName"/>
-        <result column="part_price" jdbcType="NUMERIC" javaType="java.math.BigDecimal"  property="partPrice"/>
+        <result column="part_price" jdbcType="NUMERIC" javaType="java.math.BigDecimal" property="partPrice"/>
     </resultMap>
     <insert id="insertPartSelective" keyProperty="partId" useGeneratedKeys="true"
             parameterType="shuhuai.vehiclerepairer.entity.Parts">
@@ -31,4 +31,16 @@
         from vehicle_repairer.public.parts
         order by part_id
     </select>
+    <update id="updatePartSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Parts">
+        update vehicle_repairer.public.parts
+        <set>
+            <if test="partName != null">
+                part_name = #{partName,jdbcType=VARCHAR},
+            </if>
+            <if test="partPrice != null">
+                part_price = #{partPrice,jdbcType=NUMERIC},
+            </if>
+        </set>
+        where part_id = #{partId,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import shuhuai.vehiclerepairer.entity.Parts;
 import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.PartService;
 import shuhuai.vehiclerepairer.service.RepairmanService;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,7 +51,7 @@ public class RepairmanController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
     public Response<Object> getRepairmans(@RequestParam String prof) {
-       List<Repairman> repairmen = repairmanService.getRepairmanByPro(prof);
+        List<Repairman> repairmen = repairmanService.getRepairmanByPro(prof);
         return new Response<>(200, "获取维修员成功", new HashMap<String, List<Repairman>>() {{
             put("customerId", repairmen);
         }});
@@ -74,31 +72,5 @@ public class RepairmanController extends BaseController {
         }});
     }
 
-    @ApiOperation("所有零件")
-    @RequestMapping(value = "/get-all-parts", method = RequestMethod.GET)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "登记客户信息成功"),
-            @ApiResponse(code = 403, message = "权限不足"),
-            @ApiResponse(code = 422, message = "参数错误"),
-            @ApiResponse(code = 500, message = "服务器错误")
-    })
-    public Response<Object> getAllParts() {
-        List<Parts> parts = partService.getAllParts();
-        return new Response<>(200, "获取零件成功", new HashMap<String, List<Parts>>() {{
-            put("零件信息", parts);
-        }});
-    }
 
-    @ApiOperation("添加零件")
-    @RequestMapping(value = "/add-part", method = RequestMethod.POST)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "登记客户信息成功"),
-            @ApiResponse(code = 403, message = "权限不足"),
-            @ApiResponse(code = 422, message = "参数错误"),
-            @ApiResponse(code = 500, message = "服务器错误")
-    })
-    public Response<Object> addPart(@RequestParam String partName,@RequestParam BigDecimal partPrice) {
-        partService.addPart(partName,partPrice);
-        return new Response<>(200, "添加成功", null);
-    }
 }

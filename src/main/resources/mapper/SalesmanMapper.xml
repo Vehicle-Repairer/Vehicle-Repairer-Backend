@@ -15,7 +15,7 @@
     </resultMap>
     <insert id="insertSalesman" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Salesman">
         insert into vehicle_repairer.public.salesman(id, man_name, hashed_password, sex, phone, birthday, address,
-                             email_address, created_time)
+                                                     email_address, created_time)
         values (#{id,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{hashedPassword,jdbcType=VARCHAR},
                 #{sex}::sex, #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
                 #{address,jdbcType=VARCHAR}, #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})

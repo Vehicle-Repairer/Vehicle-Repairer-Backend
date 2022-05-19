@@ -5,7 +5,6 @@ import shuhuai.vehiclerepairer.type.Sex;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @EqualsAndHashCode(callSuper = true)
