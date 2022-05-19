@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface PartService {
     void addPart(String partName, BigDecimal partPrice);
+
     List<Parts> getAllParts();
 }

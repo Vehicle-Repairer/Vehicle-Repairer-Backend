@@ -17,7 +17,6 @@ import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.sql.Date;
 
 @RestController
 @RequestMapping("/api/user")
@@ -41,7 +40,7 @@ public class UserController extends BaseController {
             if (profession == null) {
                 throw new ParamsException("参数错误");
             }
-            userService.repairmanActive(id, password,profession);
+            userService.repairmanActive(id, password, profession);
         } else if (role == Role.业务员) {
             userService.salesmanActive(id, password);
         } else {

@@ -82,4 +82,9 @@
         from customer
         where customer_id = #{customerId,jdbcType=INTEGER}
     </select>
+    <select id="selectCustomerByPhone" resultType="shuhuai.vehiclerepairer.entity.Customer">
+        select *
+        from customer
+        where phone = #{phone,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -14,7 +14,7 @@ public class RepairManServiceImpl implements RepairmanService {
     private RepairmanMapper repairmanMapper;
 
     @Override
-    public Repairman getRepairman(String  repairmanId) {
+    public Repairman getRepairman(String repairmanId) {
         return repairmanMapper.selectRepairmanById(repairmanId);
     }
 

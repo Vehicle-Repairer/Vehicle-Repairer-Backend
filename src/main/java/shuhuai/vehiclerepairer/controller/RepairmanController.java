@@ -53,7 +53,7 @@ public class RepairmanController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
     public Response<Object> getRepairmans(@RequestParam String prof) {
-       List<Repairman> repairmen = repairmanService.getRepairmanByPro(prof);
+        List<Repairman> repairmen = repairmanService.getRepairmanByPro(prof);
         return new Response<>(200, "获取维修员成功", new HashMap<String, List<Repairman>>() {{
             put("customerId", repairmen);
         }});
@@ -97,8 +97,8 @@ public class RepairmanController extends BaseController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> addPart(@RequestParam String partName,@RequestParam BigDecimal partPrice) {
-        partService.addPart(partName,partPrice);
+    public Response<Object> addPart(@RequestParam String partName, @RequestParam BigDecimal partPrice) {
+        partService.addPart(partName, partPrice);
         return new Response<>(200, "添加成功", null);
     }
 }

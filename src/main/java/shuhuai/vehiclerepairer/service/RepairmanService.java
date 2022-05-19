@@ -1,6 +1,5 @@
 package shuhuai.vehiclerepairer.service;
 
-import shuhuai.vehiclerepairer.entity.Customer;
 import shuhuai.vehiclerepairer.entity.Repairman;
 
 import java.util.List;

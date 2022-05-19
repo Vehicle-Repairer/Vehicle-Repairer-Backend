@@ -16,6 +16,11 @@ public class Parts implements Serializable {
     private String partName;
     private BigDecimal partPrice;
 
+    public Parts(String partName, BigDecimal partPrice) {
+        this.partName = partName;
+        this.partPrice = partPrice;
+    }
+
     public Integer getPartId() {
         return partId;
     }
@@ -37,11 +42,6 @@ public class Parts implements Serializable {
     }
 
     public void setPartPrice(BigDecimal partPrice) {
-        this.partPrice = partPrice;
-    }
-
-    public Parts(String partName, BigDecimal partPrice) {
-        this.partName = partName;
         this.partPrice = partPrice;
     }
 }
