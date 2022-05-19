@@ -18,7 +18,7 @@ public interface UserService {
      * @param id       用户账号
      * @param password 用户密码
      */
-    void repairmanActive(String id, String password) throws IdDuplicatedException, ParamsException, ServerException;
+    void repairmanActive(String id, String password, String profession) throws IdDuplicatedException, ParamsException, ServerException;
 
     /**
      * 维修员登录
@@ -47,4 +47,5 @@ public interface UserService {
     void salesmanLogin(String id, String password) throws ParamsException, IdPasswordErrorException;
 
     void salesmanModifyInformation(Salesman salesman);
+
 }

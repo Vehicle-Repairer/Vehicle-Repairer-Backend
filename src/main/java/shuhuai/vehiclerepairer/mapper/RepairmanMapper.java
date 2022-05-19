@@ -3,6 +3,8 @@ package shuhuai.vehiclerepairer.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import shuhuai.vehiclerepairer.entity.Repairman;
 
+import java.util.List;
+
 @Mapper
 public interface RepairmanMapper {
     Integer insertRepairmanSelective(Repairman repairman);
@@ -11,5 +13,7 @@ public interface RepairmanMapper {
 
     Repairman selectRepairmanById(String id);
 
-    Repairman selectRepairmanByPro(String profession);
+    List<Repairman> selectRepairmanByPro(String profession);
+
+    List<Repairman> selectAllRepairman();
 }

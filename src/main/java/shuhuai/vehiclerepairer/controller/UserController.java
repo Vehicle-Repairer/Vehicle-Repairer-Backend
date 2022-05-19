@@ -36,9 +36,12 @@ public class UserController extends BaseController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
+    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password, String profession) {
         if (role == Role.维修员) {
-            userService.repairmanActive(id, password);
+            if (profession == null) {
+                throw new ParamsException("参数错误");
+            }
+            userService.repairmanActive(id, password,profession);
         } else if (role == Role.业务员) {
             userService.salesmanActive(id, password);
         } else {
@@ -77,7 +80,7 @@ public class UserController extends BaseController {
             @ApiResponse(code = 401, message = "token无效"),
             @ApiResponse(code = 422, message = "参数错误"),
     })
-    public Response<Object> modifyInformation(String manName, Sex sex, String phone, Date birthday, String address, String emailAddress,
+    public Response<Object> modifyInformation(String manName, Sex sex, String phone, String birthday, String address, String emailAddress,
                                               String profession, BigDecimal hourCost) {
         String id = TokenValidator.getUser().get("id");
         Role role = Role.valueOf(TokenValidator.getUser().get("role"));

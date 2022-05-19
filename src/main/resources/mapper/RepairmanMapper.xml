@@ -10,7 +10,7 @@
         <result column="sex" javaType="shuhuai.vehiclerepairer.type.Sex" property="sex"
                 typeHandler="shuhuai.vehiclerepairer.type.SexHandler"/>
         <result column="phone" jdbcType="VARCHAR" javaType="String" property="phone"/>
-        <result column="birthday" jdbcType="DATE" javaType="java.sql.Date" property="birthday"/>
+        <result column="birthday" jdbcType="VARCHAR" javaType="String" property="birthday"/>
         <result column="address" jdbcType="VARCHAR" javaType="String" property="address"/>
         <result column="email_address" jdbcType="VARCHAR" javaType="String" property="emailAddress"/>
         <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
@@ -75,7 +75,7 @@
                 #{phone,jdbcType=VARCHAR},
             </if>
             <if test="birthday != null">
-                #{birthday,jdbcType=DATE},
+                #{birthday,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
@@ -133,5 +133,9 @@
         select *
         from vehicle_repairer.public.repairman
         where profession = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllRepairman" resultType="shuhuai.vehiclerepairer.entity.Repairman">
+        select *
+        from vehicle_repairer.public.repairman
     </select>
 </mapper>
