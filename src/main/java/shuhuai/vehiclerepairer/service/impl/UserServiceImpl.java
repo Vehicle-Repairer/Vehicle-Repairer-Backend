@@ -62,6 +62,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Repairman getRepairman(String id) {
+        if (id == null) {
+            throw new ParamsException("参数错误");
+        }
+        return repairmanMapper.selectRepairmanById(id);
+    }
+
+    @Override
     public void salesmanActive(String id, String password) throws IdDuplicatedException, ParamsException, ServerException {
         if (id == null || password == null) {
             throw new ParamsException("参数错误");
@@ -97,4 +105,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public Salesman getSalesman(String id) {
+        if (id == null) {
+            throw new ParamsException("参数错误");
+        }
+        return salesmanMapper.selectSalesmanById(id);
+    }
 }

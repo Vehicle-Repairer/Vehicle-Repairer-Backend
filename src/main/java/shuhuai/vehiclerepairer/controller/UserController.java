@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import shuhuai.vehiclerepairer.entity.BaseMan;
 import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.entity.Salesman;
 import shuhuai.vehiclerepairer.response.Response;
@@ -17,6 +18,7 @@ import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/user")
@@ -94,5 +96,26 @@ public class UserController extends BaseController {
             throw new ParamsException("参数错误");
         }
         return new Response<>(200, "更改个人信息成功", null);
+    }
+
+    @ApiOperation("我是谁")
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "获取我是谁成功"),
+            @ApiResponse(code = 401, message = "token无效"),
+    })
+    public Response<Object> getMe() {
+        String id = TokenValidator.getUser().get("id");
+        Role role = Role.valueOf(TokenValidator.getUser().get("role"));
+        BaseMan me = null;
+        if (role == Role.维修员) {
+            me = userService.getRepairman(id);
+        } else if (role == Role.业务员) {
+            me = userService.getSalesman(id);
+        }
+        BaseMan finalMe = me;
+        return new Response<>(200, "获取我是谁成功", new HashMap<String, BaseMan>() {{
+            put("me", finalMe);
+        }});
     }
 }

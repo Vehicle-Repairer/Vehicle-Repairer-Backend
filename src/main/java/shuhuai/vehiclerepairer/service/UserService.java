@@ -30,6 +30,8 @@ public interface UserService {
 
     void repairmanModifyInformation(Repairman repairman);
 
+    Repairman getRepairman(String id);
+
     /**
      * 业务员激活
      *
@@ -48,4 +50,5 @@ public interface UserService {
 
     void salesmanModifyInformation(Salesman salesman);
 
+    Salesman getSalesman(String id);
 }
