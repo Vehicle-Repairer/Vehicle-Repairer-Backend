@@ -33,4 +33,17 @@ public class PartServiceImpl implements PartService {
     public List<Parts> getAllParts() {
         return partsMapper.selectAllParts();
     }
+
+    @Override
+    public void updatePart(Parts part) {
+        Integer result;
+        try {
+            result = partsMapper.updatePartSelectiveById(part);
+        } catch (Exception error) {
+            throw new ServerException("服务器错误");
+        }
+        if (result != 1) {
+            throw new ServerException("服务器错误");
+        }
+    }
 }

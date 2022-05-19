@@ -10,4 +10,6 @@ public interface PartsMapper {
     Integer insertPartSelective(Parts part);
 
     List<Parts> selectAllParts();
+
+    Integer updatePartSelectiveById(Parts part);
 }
