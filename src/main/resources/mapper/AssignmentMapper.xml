@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shuhuai.vehiclerepairer.mapper.AssignmentMapper">
+    <resultMap id="AssignmentResultMap" type="shuhuai.vehiclerepairer.entity.Assignment">
+        <id column="assignment_id" jdbcType="INTEGER" javaType="Integer" property="assignmentId"/>
+        <result column="attorney_id" jdbcType="INTEGER" javaType="Integer" property="attorneyId"/>
+        <result column="item_id" jdbcType="INTEGER" javaType="Integer" property="itemId"/>
+        <result column="repair_man_id" jdbcType="INTEGER" javaType="Integer" property="repairmanId"/>
+        <result column="is_finished" jdbcType="BIT" javaType="Boolean" property="isFinished"/>
+    </resultMap>
+    <insert id="insertAssignmentSelective" keyProperty="assignmentId" useGeneratedKeys="true"
+            parameterType="shuhuai.vehiclerepairer.entity.Assignment">
+        insert into assignment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assignmentId != null">
+                assignment_id,
+            </if>
+            <if test="attorneyId != null">
+                attorney_id,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="repairmanId != null">
+                repair_man_id,
+            </if>
+            <if test="isFinished != null">
+                is_finished,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assignmentId != null">
+                #{assignmentId,jdbcType=INTEGER},
+            </if>
+            <if test="attorneyId != null">
+                #{attorneyId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="repairmanId != null">
+                #{repairmanId,jdbcType=INTEGER},
+            </if>
+            <if test="isFinished != null">
+                #{isFinished,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAssignmentByAssignmentId" parameterType="shuhuai.vehiclerepairer.entity.Assignment">
+        update assignment
+        <set>
+            <if test="assignmentId != null">
+                assignment_id = #{assignmentId,jdbcType=INTEGER},
+            </if>
+            <if test="attorneyId != null">
+                attorney_id = #{attorneyId,jdbcType=INTEGER},
+            </if>
+            <if test="itemId != null">
+                item_id = #{itemId,jdbcType=INTEGER},
+            </if>
+            <if test="repairmanId != null">
+                repair_man_id = #{repairmanId,jdbcType=INTEGER},
+            </if>
+            <if test="isFinished != null">
+                is_finished = #{isFinished,jdbcType=BIT},
+            </if>
+        </set>
+        where assignment_id = #{assignmentId,jdbcType=INTEGER}
+    </update>
+    <select id="selectAssignmentByAttorneyId" resultType="shuhuai.vehiclerepairer.entity.Assignment">
+        select *
+        from assignment
+        where attorney_id = #{attorneyId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAssignmentByAssignmentId" resultType="shuhuai.vehiclerepairer.entity.Assignment">
+        select *
+        from assignment
+        where assignment_id = #{assignmentId,jdbcType=INTEGER}
+    </select>
+</mapper>
