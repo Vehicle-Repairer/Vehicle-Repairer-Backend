@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import shuhuai.vehiclerepairer.entity.BaseMan;
 import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.entity.Salesman;
 import shuhuai.vehiclerepairer.response.Response;
@@ -17,7 +18,8 @@ import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.HashMap;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -36,9 +38,12 @@ public class UserController extends BaseController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> actvie(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
+    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password, String profession) {
         if (role == Role.维修员) {
-            userService.repairmanActive(id, password);
+            if (profession == null) {
+                throw new ParamsException("参数错误");
+            }
+            userService.repairmanActive(id, password, profession);
         } else if (role == Role.业务员) {
             userService.salesmanActive(id, password);
         } else {
@@ -77,7 +82,7 @@ public class UserController extends BaseController {
             @ApiResponse(code = 401, message = "token无效"),
             @ApiResponse(code = 422, message = "参数错误"),
     })
-    public Response<Object> modifyInformation(String manName, Sex sex, String phone, Date birthday, String address, String emailAddress,
+    public Response<Object> modifyInformation(String manName, Sex sex, String phone, String birthday, String address, String emailAddress,
                                               String profession, BigDecimal hourCost) {
         String id = TokenValidator.getUser().get("id");
         Role role = Role.valueOf(TokenValidator.getUser().get("role"));
@@ -92,5 +97,26 @@ public class UserController extends BaseController {
             throw new ParamsException("参数错误");
         }
         return new Response<>(200, "更改个人信息成功", null);
+    }
+
+    @ApiOperation("我是谁")
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "获取我是谁成功"),
+            @ApiResponse(code = 401, message = "token无效"),
+    })
+    public Response<Object> getMe() {
+        String id = TokenValidator.getUser().get("id");
+        Role role = Role.valueOf(TokenValidator.getUser().get("role"));
+        BaseMan me = null;
+        if (role == Role.维修员) {
+            me = userService.getRepairman(id);
+        } else if (role == Role.业务员) {
+            me = userService.getSalesman(id);
+        }
+        BaseMan finalMe = me;
+        return new Response<>(200, "获取我是谁成功", new HashMap<String, BaseMan>() {{
+            put("me", finalMe);
+        }});
     }
 }

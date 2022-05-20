@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shuhuai.vehiclerepairer.mapper.RepairItemMapper">
+    <resultMap id="RepairItemResultMap" type="shuhuai.vehiclerepairer.entity.Parts">
+        <id column="item_id" jdbcType="INTEGER" javaType="Integer" property="itemId"/>
+        <result column="item_name" jdbcType="VARCHAR" javaType="String" property="itemName"/>
+        <result column="need_time" jdbcType="INTEGER" javaType="Integer" property="needTime"/>
+        <result column="profession" jdbcType="VARCHAR" javaType="String" property="profession"/>
+    </resultMap>
+    <insert id="insertRepairItemSelective" keyProperty="itemId" useGeneratedKeys="true"
+            parameterType="shuhuai.vehiclerepairer.entity.RepairItem">
+        insert into vehicle_repairer.public.repair_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemName != null">
+                item_name,
+            </if>
+            <if test="needTime != null">
+                need_time,
+            </if>
+            <if test="profession != null">
+                profession,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemName != null">
+                #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="needTime != null">
+                #{needTime,jdbcType=INTEGER},
+            </if>
+            <if test="profession != null">
+                #{profession,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateRepairItemById" parameterType="shuhuai.vehiclerepairer.entity.RepairItem">
+        update vehicle_repairer.public.repair_item
+        <set>
+            <if test="itemName != null">
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="needTime != null">
+                need_time = #{needTime,jdbcType=INTEGER},
+            </if>
+            <if test="profession != null">
+                profession = #{profession,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where item_id = #{itemId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllItems" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
+        select *
+        from vehicle_repairer.public.repair_item
+        order by item_id
+    </select>
+
+    <select id="selectItemsByItemName" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
+        select *
+        from vehicle_repairer.public.repair_item
+        where item_name = #{itemName,jdbcType=VARCHAR}
+        order by item_id
+    </select>
+
+    <select id="selectItemsByProfession" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
+        select *
+        from vehicle_repairer.public.repair_item
+        where profession = #{profession,jdbcType=VARCHAR}
+        order by item_id
+    </select>
+
+    <select id="selectItemsByProfessionAndName" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
+        select *
+        from vehicle_repairer.public.repair_item
+        where profession = #{profession,jdbcType=VARCHAR}
+          and item_name = #{itemName,jdbcType=VARCHAR}
+        order by item_id
+    </select>
+</mapper>

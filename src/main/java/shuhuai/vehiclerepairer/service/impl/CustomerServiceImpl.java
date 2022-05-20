@@ -10,6 +10,7 @@ import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -40,5 +41,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ParamsException("参数错误");
         }
         return customerMapper.selectCustomerByCustomerId(customerId);
+    }
+
+    @Override
+    public List<Customer> getCustomer(String phone) {
+        TokenValidator.checkRole(Role.业务员);
+        if (phone == null) {
+            throw new ParamsException("参数错误");
+        }
+        return customerMapper.selectCustomerByPhone(phone);
     }
 }

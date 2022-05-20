@@ -8,20 +8,20 @@
         <result column="sex" javaType="shuhuai.vehiclerepairer.type.Sex" property="sex"
                 typeHandler="shuhuai.vehiclerepairer.type.SexHandler"/>
         <result column="phone" jdbcType="VARCHAR" javaType="String" property="phone"/>
-        <result column="birthday" jdbcType="DATE" javaType="java.sql.Date" property="birthday"/>
+        <result column="birthday" jdbcType="VARCHAR" javaType="String" property="birthday"/>
         <result column="address" jdbcType="VARCHAR" javaType="String" property="address"/>
         <result column="email_address" jdbcType="VARCHAR" javaType="String" property="emailAddress"/>
         <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
     </resultMap>
     <insert id="insertSalesman" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Salesman">
-        insert into salesman(id, man_name, hashed_password, sex, phone, birthday, address,
-                             email_address, created_time)
+        insert into vehicle_repairer.public.salesman(id, man_name, hashed_password, sex, phone, birthday, address,
+                                                     email_address, created_time)
         values (#{id,jdbcType=VARCHAR}, #{manName,jdbcType=VARCHAR}, #{hashedPassword,jdbcType=VARCHAR},
                 #{sex}::sex, #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
                 #{address,jdbcType=VARCHAR}, #{emailAddress,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSalesmanSelective" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Salesman">
-        insert into salesman
+        insert into vehicle_repairer.public.salesman
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -68,7 +68,7 @@
                 #{phone,jdbcType=VARCHAR},
             </if>
             <if test="birthday != null">
-                #{birthday,jdbcType=DATE},
+                #{birthday,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},

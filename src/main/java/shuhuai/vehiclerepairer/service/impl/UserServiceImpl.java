@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     SalesmanMapper salesmanMapper;
 
     @Override
-    public void repairmanActive(String id, String password) throws IdDuplicatedException, ParamsException, ServerException {
+    public void repairmanActive(String id, String password, String profession) throws IdDuplicatedException, ParamsException, ServerException {
         if (id == null || password == null) {
             throw new ParamsException("参数错误");
         }
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         if (repairmanMapper.selectRepairmanById(id) != null) {
             throw new IdDuplicatedException("账户已激活");
         }
-        Repairman repairman = new Repairman(id, hashedPassword);
+        Repairman repairman = new Repairman(id, hashedPassword, profession);
         Integer result = repairmanMapper.insertRepairmanSelective(repairman);
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -59,6 +59,14 @@ public class UserServiceImpl implements UserService {
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
+    }
+
+    @Override
+    public Repairman getRepairman(String id) {
+        if (id == null) {
+            throw new ParamsException("参数错误");
+        }
+        return repairmanMapper.selectRepairmanById(id);
     }
 
     @Override
@@ -95,5 +103,13 @@ public class UserServiceImpl implements UserService {
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
+    }
+
+    @Override
+    public Salesman getSalesman(String id) {
+        if (id == null) {
+            throw new ParamsException("参数错误");
+        }
+        return salesmanMapper.selectSalesmanById(id);
     }
 }
