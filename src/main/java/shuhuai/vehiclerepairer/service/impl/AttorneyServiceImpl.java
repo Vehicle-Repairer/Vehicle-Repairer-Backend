@@ -23,7 +23,6 @@ public class AttorneyServiceImpl implements AttorneyService {
                                Integer range, String fuelAmount, String salesmanId, String manName, Boolean isFinished, String detailedFault,
                                Date inFactoryTime, Double finalPrice) {
         TokenValidator.checkRole(Role.业务员);
-
         if (licenseNumber == null || repairType == null || repairAmount == null || range == 0 || fuelAmount == null ||
                 manName == null || detailedFault == null || inFactoryTime == null) {
             throw new ParamsException("参数错误");
@@ -34,10 +33,8 @@ public class AttorneyServiceImpl implements AttorneyService {
         if (!repairAmount.equals("小修") && !repairAmount.equals("中修") && !repairAmount.equals("大修")) {
             throw new ParamsException("参数错误");
         }
-        isFinished = false;
         finalPrice = 0.0;
-        Attorney attorney = new Attorney(customerId, frameNumber, licenseNumber, repairType, repairAmount,
-                range, fuelAmount, salesmanId, manName, isFinished, detailedFault,
+        Attorney attorney = new Attorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, salesmanId, manName, isFinished, detailedFault,
                 inFactoryTime, finalPrice);
         Integer result = attorneyMapper.insertAttorneySelective(attorney);
         if (result != 1) {

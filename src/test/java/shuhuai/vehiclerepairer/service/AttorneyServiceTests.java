@@ -1,6 +1,5 @@
 package shuhuai.vehiclerepairer.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +23,9 @@ public class AttorneyServiceTests {
         Integer attorneyId;
         Date now = new Date();
         try {
-            attorneyId = attorneyService.addAttorney(1,"ABCDEF","123456","加急","小修" ,
-                    2000,"3/4","19120210","凌佳伟",false,"车头损坏",
-            now,0.0);
+            attorneyId = attorneyService.addAttorney(1, "ABCDEF", "123456", "加急", "小修",
+                    2000, "3/4", "19120210", "凌佳伟", false, "车头损坏",
+                    now, 0.0);
             log.info("添加维修委托书成功" + attorneyId.toString() + "。");
         } catch (BaseException error) {
             log.error(error.getMessage());

@@ -34,11 +34,12 @@ public class AttorneyController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> addAttorney(@RequestParam Integer customerId, @RequestParam String frameNumber, @RequestParam String licenseNumber, @RequestParam String repairType, @RequestParam String repairAmount,
-                                        @RequestParam Integer range, @RequestParam String fuelAmount, @RequestParam String salesmanId, @RequestParam String manName, @RequestParam Boolean isFinished, @RequestParam String detailedFault,
-                                        @RequestParam Date inFactoryTime, @RequestParam Double finalPrice) {
-        attorneyService.addAttorney(customerId, frameNumber, licenseNumber, repairType, repairAmount,
-                range, fuelAmount, salesmanId, manName, isFinished, detailedFault,
+    public Response<Object> addAttorney(@RequestParam Integer customerId, @RequestParam String frameNumber, @RequestParam String licenseNumber,
+                                        @RequestParam String repairType, @RequestParam String repairAmount, @RequestParam Integer range,
+                                        @RequestParam String fuelAmount, @RequestParam String manName, @RequestParam Boolean isFinished,
+                                        @RequestParam String detailedFault, @RequestParam Date inFactoryTime, @RequestParam Double finalPrice) {
+        String id = TokenValidator.getUser().get("id");
+        attorneyService.addAttorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, id, manName, isFinished, detailedFault,
                 inFactoryTime, finalPrice);
         return new Response<>(200, "添加成功", null);
     }

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -15,22 +14,22 @@ import java.util.Date;
 public class Attorney implements Serializable {
     private Integer attorneyId;
     private Integer customerId;
-    private String  frameNumber;
-    private String  licenseNumber;
-    private String  repairType;
-    private String  repairAmount;
+    private String frameNumber;
+    private String licenseNumber;
+    private String repairType;
+    private String repairAmount;
     private Integer range;
-    private String  fuelAmount;
-    private String  salesmanId;
-    private String  manName;
+    private String fuelAmount;
+    private String salesmanId;
+    private String manName;
     private Boolean isFinished;
-    private String  detailedFault;
+    private String detailedFault;
     private Date inFactoryTime;
     private Double finalPrice;
 
-    public Attorney(Integer customerId,String  frameNumber,String  licenseNumber,String  repairType,String  repairAmount,
-                    Integer range,String  fuelAmount,String  salesmanId,String  manName,Boolean isFinished,String  detailedFault,
-                    Date inFactoryTime,Double finalPrice) {
+    public Attorney(Integer customerId, String frameNumber, String licenseNumber, String repairType, String repairAmount,
+                    Integer range, String fuelAmount, String salesmanId, String manName, Boolean isFinished, String detailedFault,
+                    Date inFactoryTime, Double finalPrice) {
         this.customerId = customerId;
         this.frameNumber = frameNumber;
         this.licenseNumber = licenseNumber;
