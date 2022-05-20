@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shuhuai.vehiclerepairer.mapper.AttorneyMapper">
+    <resultMap id="AttorneyResultMap" type="shuhuai.vehiclerepairer.entity.Attorney">
+        <result column="attorney_id" jdbcType="INTEGER" javaType="Integer" property="attorneyId"/>
+        <result column="customer_id" jdbcType="INTEGER" javaType="Integer" property="customerId"/>
+        <result column="frame_number" jdbcType="VARCHAR" javaType="String" property="frameNumber"/>
+        <result column="license_number" jdbcType="VARCHAR" javaType="String" property="licenseNumber"/>
+        <result column="repair_type" jdbcType="VARCHAR" javaType="String" property="repairType"/>
+        <result column="repair_amount" jdbcType="VARCHAR" javaType="String" property="repairAmount"/>
+        <result column="range" jdbcType="INTEGER" javaType="Integer" property="range"/>
+        <result column="fuel_amount" jdbcType="VARCHAR" javaType="String" property="fuelAmount"/>
+        <result column="salesman_id" jdbcType="VARCHAR" javaType="String" property="salesmanId"/>
+        <result column="man_name" jdbcType="VARCHAR" javaType="String" property="manName"/>
+        <result column="is_finished" jdbcType="BOOL" javaType="Boolean" property="isFinished"/>
+        <result column="detailed_fault" jdbcType="VARCHAR" javaType="String" property="detailedFault"/>
+        <result column="in_factory_time" jdbcType="DATE" javaType="java.sql.Date" property="inFactoryTime"/>
+        <result column="final_price" jdbcType="DOUBLE" javaType="Double" property="finalPrice"/>
+    </resultMap>
+    <insert id="insertAttorneySelective" keyProperty="attorneyId" useGeneratedKeys="true"
+            parameterType="shuhuai.vehiclerepairer.entity.Attorney">
+        insert into attorney
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="attorneyId != null">
+                attorney_id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="frameNumber != null">
+                frame_number,
+            </if>
+            <if test="licenseNumber != null">
+                license_number,
+            </if>
+            <if test="repairType != null">
+                repair_type,
+            </if>
+            <if test="repairAmount != null">
+                repair_amount,
+            </if>
+            <if test="range != null">
+                range,
+            </if>
+            <if test="fuelAmount != null">
+                fuel_amount,
+            </if>
+            <if test="salesmanId != null">
+                salesman_id,
+            </if>
+            <if test="manName != null">
+                man_name,
+            </if>
+            <if test="isFinished != null">
+                is_finished,
+            </if>
+            <if test="detailedFault != null">
+                detailed_fault,
+            </if>
+            <if test="inFactoryTime != null">
+                in_factory_time,
+            </if>
+            <if test="finalPrice != null">
+                final_price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="attorneyId != null">
+                #{attorneyId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="frameNumber != null">
+                #{frameNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="licenseNumber != null">
+                #{licenseNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="repairType != null">
+                #{repairType,jdbcType=VARCHAR},
+            </if>
+            <if test="repairAmount != null">
+                #{repairAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="range != null">
+                #{range,jdbcType=INTEGER},
+            </if>
+            <if test="fuelAmount != null">
+                #{fuelAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="salesmanId != null">
+                #{salesmanId,jdbcType=VARCHAR},
+            </if>
+            <if test="manName != null">
+                #{manName,jdbcType=VARCHAR},
+            </if>
+            <if test="isFinished != null">
+                #{isFinished,jdbcType=BOOL},
+            </if>
+            <if test="detailedFault != null">
+                #{detailedFault,jdbcType=VARCHAR},
+            </if>
+            <if test="inFactoryTime != null">
+                #{inFactoryTime,jdbcType=DATE},
+            </if>
+            <if test="finalPrice != null">
+                #{finalPrice,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateCustomerSelectiveByAttorneyId" parameterType="shuhuai.vehiclerepairer.entity.Attorney">
+        update attorney
+        <set>
+            <if test="attorneyId != null">
+                attorney_id = #{attorneyId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="frameNumber != null">
+                frame_number = #{frameNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="licenseNumber != null">
+                license_number = #{licenseNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="repairType != null">
+                repair_type = #{repairType,jdbcType=VARCHAR},
+            </if>
+            <if test="repairAmount != null">
+                repair_amount = #{repairAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="range != null">
+                range = #{range,jdbcType=INTEGER},
+            </if>
+            <if test="fuelAmount != null">
+                fuel_amount = #{fuelAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="salesmanId != null">
+                salesman_id = #{salesmanId,jdbcType=VARCHAR},
+            </if>
+            <if test="manName != null">
+                man_name = #{manName,jdbcType=VARCHAR},
+            </if>
+            <if test="isFinished != null">
+                is_finished = #{isFinished,jdbcType=BOOL},
+            </if>
+            <if test="detailedFault != null">
+                detailed_fault = #{detailedFault,jdbcType=VARCHAR},
+            </if>
+            <if test="inFactoryTime != null">
+                in_factory_time = #{inFactoryTime,jdbcType=DATE},
+            </if>
+            <if test="finalPrice != null">
+                final_price = #{finalPrice,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where attorney_id = #{attorneyId,jdbcType=INTEGER}
+    </update>
+    <select id="selectAttorneyByCustomerId" resultType="shuhuai.vehiclerepairer.entity.Attorney">
+        select *
+        from attorney
+        where customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAttorneyBySalesmanId" resultType="shuhuai.vehiclerepairer.entity.Attorney">
+        select *
+        from attorney
+        where salesman_id = #{salesmanId,jdbcType=VARCHAR}
+    </select>
+</mapper>
