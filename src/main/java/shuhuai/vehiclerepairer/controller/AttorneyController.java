@@ -72,7 +72,6 @@ public class AttorneyController {
     public Response<Object> getAttorneyBySalesmanId() {
         String id = TokenValidator.getUser().get("id");
         List<Attorney> attorneys = attorneyService.getAttorneyBySalesmanId(id);
-        System.out.println(id);
         return new Response<>(200, "查询业务员的维修委托书成功", new HashMap<String, Object>() {{
             put("attorneys", attorneys);
         }});
