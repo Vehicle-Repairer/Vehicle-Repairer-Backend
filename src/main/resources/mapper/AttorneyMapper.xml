@@ -12,9 +12,9 @@
         <result column="fuel_amount" jdbcType="VARCHAR" javaType="String" property="fuelAmount"/>
         <result column="salesman_id" jdbcType="VARCHAR" javaType="String" property="salesmanId"/>
         <result column="man_name" jdbcType="VARCHAR" javaType="String" property="manName"/>
-        <result column="is_finished" jdbcType="BOOL" javaType="Boolean" property="isFinished"/>
+        <result column="is_finished" jdbcType="BIT" javaType="Boolean" property="isFinished"/>
         <result column="detailed_fault" jdbcType="VARCHAR" javaType="String" property="detailedFault"/>
-        <result column="in_factory_time" jdbcType="DATE" javaType="java.sql.Date" property="inFactoryTime"/>
+        <result column="in_factory_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="inFactoryTime"/>
         <result column="final_price" jdbcType="DOUBLE" javaType="Double" property="finalPrice"/>
     </resultMap>
     <insert id="insertAttorneySelective" keyProperty="attorneyId" useGeneratedKeys="true"
@@ -96,13 +96,13 @@
                 #{manName,jdbcType=VARCHAR},
             </if>
             <if test="isFinished != null">
-                #{isFinished,jdbcType=BOOL},
+                #{isFinished,jdbcType=BIT},
             </if>
             <if test="detailedFault != null">
                 #{detailedFault,jdbcType=VARCHAR},
             </if>
             <if test="inFactoryTime != null">
-                #{inFactoryTime,jdbcType=DATE},
+                #{inFactoryTime,jdbcType=TIMESTAMP},
             </if>
             <if test="finalPrice != null">
                 #{finalPrice,jdbcType=DOUBLE},
@@ -143,13 +143,13 @@
                 man_name = #{manName,jdbcType=VARCHAR},
             </if>
             <if test="isFinished != null">
-                is_finished = #{isFinished,jdbcType=BOOL},
+                is_finished = #{isFinished,jdbcType=BIT},
             </if>
             <if test="detailedFault != null">
                 detailed_fault = #{detailedFault,jdbcType=VARCHAR},
             </if>
             <if test="inFactoryTime != null">
-                in_factory_time = #{inFactoryTime,jdbcType=DATE},
+                in_factory_time = #{inFactoryTime,jdbcType=TIMESTAMP},
             </if>
             <if test="finalPrice != null">
                 final_price = #{finalPrice,jdbcType=DOUBLE},

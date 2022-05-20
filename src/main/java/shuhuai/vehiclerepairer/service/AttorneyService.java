@@ -7,7 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 public interface AttorneyService {
-    Integer addAttorney(Attorney attorney);
+    Integer addAttorney(Integer customerId,String  frameNumber,String  licenseNumber,String  repairType,String  repairAmount,
+                        Integer range,String  fuelAmount,String  salesmanId,String  manName,Boolean isFinished,String  detailedFault,
+                        Date inFactoryTime,Double finalPrice);
+
+
 
     List<Attorney> getAttorneyByCustomerId(Integer customerId);
 

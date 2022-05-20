@@ -20,22 +20,26 @@ public class AttorneyServiceImpl implements AttorneyService {
     private AttorneyMapper attorneyMapper;
 
     @Override
-    public Integer addAttorney(Attorney attorney){
+    public Integer addAttorney(Integer customerId,String  frameNumber,String  licenseNumber,String  repairType,String  repairAmount,
+                               Integer range,String  fuelAmount,String  salesmanId,String  manName,Boolean isFinished,String  detailedFault,
+                               Date inFactoryTime,Double finalPrice){
         TokenValidator.checkRole(Role.业务员);
 
-        if (attorney.getLicenseNumber() == null || attorney.getRepairType() == null || attorney.getRepairAmount() == null || attorney.getRange() == 0 || attorney.getFuelAmount() == null ||
-                attorney.getManName() == null || attorney.getDetailedFault() == null || attorney.getInFactoryTime() == null ) {
+        if (licenseNumber == null || repairType == null || repairAmount == null || range == 0 || fuelAmount == null ||
+                manName == null || detailedFault == null || inFactoryTime == null ) {
             throw new ParamsException("参数错误");
         }
-        if (!attorney.getRepairType().equals("普通") && !attorney.getRepairType().equals("加急")) {
+        if (!repairType.equals("普通") && !repairType.equals("加急")) {
             throw new ParamsException("参数错误");
         }
-        if (!attorney.getRepairAmount().equals("小修") && !attorney.getRepairAmount().equals("中修") && !attorney.getRepairAmount().equals("大修")) {
+        if (!repairAmount.equals("小修") && !repairAmount.equals("中修") && !repairAmount.equals("大修")) {
             throw new ParamsException("参数错误");
         }
-        attorney.setFinished(false);
-        attorney.setFinalPrice(0.0);
-
+        isFinished = false;
+        finalPrice = 0.0;
+        Attorney attorney = new Attorney(customerId,frameNumber,licenseNumber,repairType,repairAmount,
+                range,fuelAmount,salesmanId,manName,isFinished,detailedFault,
+                inFactoryTime,finalPrice);
         Integer result = attorneyMapper.insertAttorneySelective(attorney);
         if (result != 1) {
             throw new ServerException("服务器错误");
