@@ -9,5 +9,5 @@ public interface CustomerService {
 
     Customer getCustomer(Integer customerId);
 
-    List<Customer> getCustomer(String phone);
+    List<Customer> getCustomer(String phone, String name, String type);
 }

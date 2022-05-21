@@ -82,9 +82,47 @@
         from customer
         where customer_id = #{customerId,jdbcType=INTEGER}
     </select>
-    <select id="selectCustomerByPhone" resultType="shuhuai.vehiclerepairer.entity.Customer">
-        select *
-        from customer
-        where phone = #{phone,jdbcType=VARCHAR}
+    <select id="selectCustomerByParam" resultType="shuhuai.vehiclerepairer.entity.Customer">
+            <if test = "phone!= null and name==null and type==null">
+                select *
+                from customer
+                where phone = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test = "phone== null and name!=null and type==null">
+                select *
+                from customer
+                where customer_name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test = "phone== null and name==null and type!=null">
+                select *
+                from customer
+                where customer_type = #{type,jdbcType=VARCHAR}
+            </if>
+        <if test = "phone!= null and name!=null and type==null">
+            select *
+            from customer
+            where phone = #{phone,jdbcType=VARCHAR}
+            and customer_name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test = "phone!= null and name==null and type!=null">
+            select *
+            from customer
+            where phone = #{phone,jdbcType=VARCHAR}
+            and customer_type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test = "phone== null and name!=null and type!=null">
+            select *
+            from customer
+            where customer_name = #{name,jdbcType=VARCHAR}
+            and customer_type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test = "phone!= null and name!=null and type!=null">
+            select *
+            from customer
+            where phone = #{phone,jdbcType=VARCHAR}
+            and customer_name = #{name,jdbcType=VARCHAR}
+            and customer_type = #{type,jdbcType=VARCHAR}
+        </if>
+
     </select>
 </mapper>

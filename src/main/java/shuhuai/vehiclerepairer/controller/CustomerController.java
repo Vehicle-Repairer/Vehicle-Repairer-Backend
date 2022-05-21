@@ -87,17 +87,17 @@ public class CustomerController extends BaseController {
         }});
     }
 
-    @ApiOperation("电话获取客户列表")
-    @RequestMapping(value = "/phone", method = RequestMethod.GET)
+    @ApiOperation("多种条件获取客户列表")
+    @RequestMapping(value = "/get-customers-by-param", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "电话获取客户列表成功"),
             @ApiResponse(code = 403, message = "权限不足"),
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> getCustomer(@RequestParam String phone) {
-        List<Customer> customers = customerService.getCustomer(phone);
-        return new Response<>(200, "电话获取客户列表成功", new HashMap<String, List<Customer>>() {{
+    public Response<Object> getCustomer(String phone, String name, String type) {
+        List<Customer> customers = customerService.getCustomer(phone, name, type);
+        return new Response<>(200, "获取客户列表成功", new HashMap<String, List<Customer>>() {{
             put("customers", customers);
         }});
     }

@@ -13,5 +13,5 @@ public interface CustomerMapper {
 
     Customer selectCustomerByCustomerId(Integer customerId);
 
-    List<Customer> selectCustomerByPhone(String phone);
+    List<Customer> selectCustomerByParam(String phone, String name, String type);
 }
