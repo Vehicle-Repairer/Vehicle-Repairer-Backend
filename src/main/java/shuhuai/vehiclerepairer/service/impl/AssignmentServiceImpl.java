@@ -20,10 +20,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     private AssignmentMapper assignmentMapper;
 
     @Override
-    public Integer addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished){
+    public Integer addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished,String repairmanId) {
         TokenValidator.checkRole(Role.业务员);
         Integer result;
-        Assignment assignment = new Assignment(attorneyId, itemId, isFinished);
+        Assignment assignment = new Assignment(attorneyId, itemId, repairmanId,isFinished);
         result = assignmentMapper.insertAssignmentSelective(assignment);
 
         if (result != 1) {

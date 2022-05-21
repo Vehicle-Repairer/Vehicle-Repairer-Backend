@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface AssignmentService {
-    Integer addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished);
+    Integer addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished,String repairmanId);
 
     List<Assignment> getAssignmentByAttorneyId(Integer attorneyId);
 

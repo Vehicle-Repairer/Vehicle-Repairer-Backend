@@ -18,9 +18,10 @@ public class Assignment implements Serializable {
     private String repairmanId;
     private Boolean isFinished;
 
-    public Assignment(Integer attorneyId, Integer itemId,Boolean isFinished) {
+    public Assignment(Integer attorneyId, Integer itemId,String repairmanId,Boolean isFinished) {
         this.attorneyId = attorneyId;
         this.itemId = itemId;
+        this.repairmanId = repairmanId;
         this.isFinished = isFinished;
     }
 

@@ -34,8 +34,9 @@ public class AssignmentController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished) {
-        assignmentService.addAssignment(attorneyId,itemId,isFinished);
+    public Response<Object> addAssignment(@RequestParam Integer attorneyId,@RequestParam Integer itemId,
+                                          @RequestParam String repairmanId,Boolean isFinished) {
+        assignmentService.addAssignment(attorneyId,itemId,isFinished,repairmanId);
         return new Response<>(200, "添加成功", null);
     }
 

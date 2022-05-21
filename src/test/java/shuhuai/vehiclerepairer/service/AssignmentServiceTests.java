@@ -23,7 +23,7 @@ public class AssignmentServiceTests {
     public void testAddAssignment() {
         Integer assignmentId;
         try {
-            assignmentId = assignmentService.addAssignment(1,4,false);
+            assignmentId = assignmentService.addAssignment(1,4,false,"123");
             log.info("添加维修派工单成功" + assignmentId.toString() + "。");
         } catch (BaseException error) {
             log.error(error.getMessage());
