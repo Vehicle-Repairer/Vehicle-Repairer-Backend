@@ -14,4 +14,8 @@ public interface AttorneyService {
     List<Attorney> getAttorneyByCustomerId(Integer customerId);
 
     List<Attorney> getAttorneyBySalesmanId(String salesmanId);
+
+    void updateAttorney(Attorney attorney);
+
+    Attorney selectAttorneyById(Integer id);
 }

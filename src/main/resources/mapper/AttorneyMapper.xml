@@ -162,6 +162,11 @@
         from attorney
         where customer_id = #{customerId,jdbcType=INTEGER}
     </select>
+    <select id="selectAttorneyById" resultType="shuhuai.vehiclerepairer.entity.Attorney">
+        select *
+        from vehicle_repairer.public.attorney
+        where attorney_id = #{attorneyId,jdbcType=INTEGER}
+    </select>
     <select id="selectAttorneyBySalesmanId" resultType="shuhuai.vehiclerepairer.entity.Attorney">
         select *
         from attorney

@@ -15,4 +15,6 @@ public interface AttorneyMapper {
 
     List<Attorney> selectAttorneyBySalesmanId(String salesmanId);
 
+    Attorney selectAttorneyById(Integer attorneyId);
+
 }

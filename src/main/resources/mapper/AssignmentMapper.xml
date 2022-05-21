@@ -5,7 +5,7 @@
         <id column="assignment_id" jdbcType="INTEGER" javaType="Integer" property="assignmentId"/>
         <result column="attorney_id" jdbcType="INTEGER" javaType="Integer" property="attorneyId"/>
         <result column="item_id" jdbcType="INTEGER" javaType="Integer" property="itemId"/>
-        <result column="repair_man_id" jdbcType="INTEGER" javaType="Integer" property="repairmanId"/>
+        <result column="repair_man_id" jdbcType="VARCHAR" javaType="String" property="repairmanId"/>
         <result column="is_finished" jdbcType="BIT" javaType="Boolean" property="isFinished"/>
     </resultMap>
     <insert id="insertAssignmentSelective" keyProperty="assignmentId" useGeneratedKeys="true"
@@ -39,7 +39,7 @@
                 #{itemId,jdbcType=INTEGER},
             </if>
             <if test="repairmanId != null">
-                #{repairmanId,jdbcType=INTEGER},
+                #{repairmanId,jdbcType=VARCHAR},
             </if>
             <if test="isFinished != null">
                 #{isFinished,jdbcType=BIT},
@@ -59,7 +59,7 @@
                 item_id = #{itemId,jdbcType=INTEGER},
             </if>
             <if test="repairmanId != null">
-                repair_man_id = #{repairmanId,jdbcType=INTEGER},
+                repair_man_id = #{repairmanId,jdbcType=VARCHAR},
             </if>
             <if test="isFinished != null">
                 is_finished = #{isFinished,jdbcType=BIT},
@@ -76,5 +76,20 @@
         select *
         from assignment
         where assignment_id = #{assignmentId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAssignmentByRepairMan" resultType="shuhuai.vehiclerepairer.entity.Assignment">
+        select *
+        from vehicle_repairer.public.assignment
+        where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
+        order by assignment_id desc
+    </select>
+    <select id="attorneyRepairmanPrice" resultType="java.math.BigDecimal">
+        select sum(repairman.hour_cost * repair_item.need_time)
+        from vehicle_repairer.public.repairman,
+             vehicle_repairer.public.assignment,
+             vehicle_repairer.public.repair_item
+        where repairman.id = assignment.repair_man_id
+            and repair_item.item_id = assignment.item_id
+            and assignment.attorney_id = #{attorneyId,jdbcType=INTEGER}
     </select>
 </mapper>

@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import shuhuai.vehiclerepairer.entity.Assignment;
 import shuhuai.vehiclerepairer.entity.Attorney;
+import shuhuai.vehiclerepairer.entity.Customer;
+import shuhuai.vehiclerepairer.entity.FinalPrice;
 import shuhuai.vehiclerepairer.response.Response;
-import shuhuai.vehiclerepairer.service.AttorneyService;
+import shuhuai.vehiclerepairer.service.*;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +29,12 @@ import java.util.List;
 public class AttorneyController {
     @Resource
     private AttorneyService attorneyService;
+    @Resource
+    private ConsumptionService consumptionService;
+    @Resource
+    private AssignmentService assignmentService;
+    @Resource
+    private CustomerService customerService;
 
     @ApiOperation("添加维修委托书")
     @RequestMapping(value = "/add-attorney", method = RequestMethod.POST)
@@ -75,6 +85,49 @@ public class AttorneyController {
         List<Attorney> attorneys = attorneyService.getAttorneyBySalesmanId(id);
         return new Response<>(200, "查询业务员的维修委托书成功", new HashMap<String, Object>() {{
             put("attorneys", attorneys);
+        }});
+    }
+
+    @ApiOperation("完成维修委托书")
+    @RequestMapping(value = "/finish", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+
+    public Response<Object> finish(@RequestParam Integer attorneyId,@RequestParam Boolean isFinished) {
+        Attorney attorney = new Attorney();
+        attorney.setAttorneyId(attorneyId);
+        attorney.setFinished(isFinished);
+        attorneyService.updateAttorney(attorney);
+        return new Response<>(200, "维修委托书状态修改成功",null);
+    }
+
+    @ApiOperation("维修最终价格")
+    @RequestMapping(value = "/total-price", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+
+    public Response<Object> totalPrice(@RequestParam Integer attorneyId) {
+        Attorney attorney = attorneyService.selectAttorneyById(attorneyId);
+        List<Assignment>  assignment = assignmentService.getAssignmentByAttorneyId(attorneyId);
+        if (assignment.size() == 0) {
+            return new Response<>(200, "没有维修派工单", null);
+        }
+        BigDecimal part = consumptionService.getPartPrice(attorneyId);
+        BigDecimal man = assignmentService.attorneyRepairmanPrice(attorneyId);
+        Customer customer = customerService.getCustomer(attorney.getCustomerId());
+        double discount_rate = customer.getDiscountRate()/100;
+        BigDecimal discount = new BigDecimal(discount_rate);
+        BigDecimal total = part.add(man);
+        total = total.multiply(discount);
+        FinalPrice finalPrice = new FinalPrice(man,part,discount_rate*100,total);
+        return new Response<>(200, "价格获取成功",new HashMap<String, Object>() {{
+            put("价格明细：", finalPrice);
         }});
     }
 }

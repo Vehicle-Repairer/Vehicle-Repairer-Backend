@@ -9,6 +9,8 @@ public interface RepairItemService {
 
     void updateRepairItem(RepairItem repairItem);
 
+    RepairItem getRepairItem(Integer itemId);
+
     List<RepairItem> getAllRepairItems();
 
     List<RepairItem> getRepairItemsByProfession(String profession);

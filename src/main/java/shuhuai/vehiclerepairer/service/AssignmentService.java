@@ -2,6 +2,7 @@ package shuhuai.vehiclerepairer.service;
 
 import shuhuai.vehiclerepairer.entity.Assignment;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AssignmentService {
@@ -9,4 +10,9 @@ public interface AssignmentService {
 
     List<Assignment> getAssignmentByAttorneyId(Integer attorneyId);
 
+    List<Assignment> getAssignmentByRepairman(String repairmanId);
+
+    void updateAssignment(Assignment assignment);
+
+    BigDecimal attorneyRepairmanPrice(Integer attorneyId);
 }

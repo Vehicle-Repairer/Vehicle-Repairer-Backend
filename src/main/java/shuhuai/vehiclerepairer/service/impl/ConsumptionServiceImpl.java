@@ -51,6 +51,11 @@ public class ConsumptionServiceImpl implements ConsumptionService {
 
     @Override
     public BigDecimal getPartPrice(Integer assignmentId) {
-        return partConsumptionMapper.getTotalPrice(assignmentId);
+        return partConsumptionMapper.getAssignmentPrice(assignmentId);
+    }
+
+    @Override
+    public BigDecimal getAttorneyPartPrice(Integer attorneyId) {
+        return partConsumptionMapper.getAttorneyPrice(attorneyId);
     }
 }

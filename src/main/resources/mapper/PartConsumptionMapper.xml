@@ -52,12 +52,22 @@
         order by consumption_id
     </select>
 
-    <select id="getTotalPrice" resultType="java.math.BigDecimal">
+    <select id="getAssignmentPrice" resultType="java.math.BigDecimal">
         select sum(part_price * part_amount)
         from vehicle_repairer.public.parts,
              vehicle_repairer.public.part_consumption
         where parts.part_id = part_consumption.part_id
           and part_consumption.assignment_id = #{assignmentId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAttorneyPrice" resultType="java.math.BigDecimal">
+        select sum(part_price * part_amount)
+        from vehicle_repairer.public.parts,
+             vehicle_repairer.public.part_consumption,
+            vehicle_repairer.public.assignment
+        where parts.part_id = part_consumption.part_id
+          and part_consumption.assignment_id =assignment.assignment_id
+          and assignment.attorney_id = #{attorneyId,jdbcType=INTEGER}
     </select>
 
 </mapper>

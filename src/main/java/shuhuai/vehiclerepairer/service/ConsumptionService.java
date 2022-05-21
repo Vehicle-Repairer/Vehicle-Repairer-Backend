@@ -13,4 +13,6 @@ public interface ConsumptionService {
     List<Consumption> getConsumptionsByAssignmentId(Integer assignmentId);
 
     BigDecimal getPartPrice(Integer assignmentId);
+
+    BigDecimal getAttorneyPartPrice(Integer attorneyId);
 }

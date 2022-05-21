@@ -40,7 +40,7 @@ public class AssignmentController {
     }
 
     @ApiOperation("查询该委托书的维修派工单")
-    @RequestMapping(value = "/attorney", method = RequestMethod.GET)
+    @RequestMapping(value = "/assignment", method = RequestMethod.GET)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "查询该委托书的维修派工单成功"),
             @ApiResponse(code = 403, message = "权限不足"),
@@ -55,4 +55,35 @@ public class AssignmentController {
         }});
     }
 
+
+    @ApiOperation("查询维修工的维修派工单")
+    @RequestMapping(value = "/assignment-by-repairman", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+
+    public Response<Object> getAssignmentByRepairman(@RequestParam String repairmanId) {
+        List<Assignment> assignments = assignmentService.getAssignmentByRepairman(repairmanId);
+        return new Response<>(200, "查询该委托书的维修派工单成功", new HashMap<String, Object>() {{
+            put("assignments", assignments);
+        }});
+    }
+
+    @ApiOperation("完成维修派工单")
+    @RequestMapping(value = "/finish-assignment", method = RequestMethod.POST)
+    @ApiResponses(value = {
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+
+    public Response<Object> finishAssignment(@RequestParam Integer assignmentId,@RequestParam boolean isFinished) {
+        Assignment assignment = new Assignment();
+        assignment.setAssignmentId(assignmentId);
+        assignment.setFinished(isFinished);
+        assignmentService.updateAssignment(assignment);
+        return new Response<>(200, "维修派工单状态修改成功",null);
+    }
 }

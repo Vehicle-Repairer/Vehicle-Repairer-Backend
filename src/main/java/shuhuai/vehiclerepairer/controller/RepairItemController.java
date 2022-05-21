@@ -27,7 +27,6 @@ public class RepairItemController extends BaseController {
     @ApiOperation("添加维修内容")
     @RequestMapping(value = "/add-repair-item", method = RequestMethod.POST)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "登记客户信息成功"),
             @ApiResponse(code = 403, message = "权限不足"),
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
@@ -40,7 +39,6 @@ public class RepairItemController extends BaseController {
     @ApiOperation("修改维修内容")
     @RequestMapping(value = "/update-repair-item", method = RequestMethod.POST)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "登记客户信息成功"),
             @ApiResponse(code = 403, message = "权限不足"),
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
@@ -52,10 +50,22 @@ public class RepairItemController extends BaseController {
         return new Response<>(200, "修改成功", null);
     }
 
+    @ApiOperation("由id得维修内容")
+    @RequestMapping(value = "/detailed-item", method = RequestMethod.GET)
+    @ApiResponses(value = {
+            @ApiResponse(code = 403, message = "权限不足"),
+            @ApiResponse(code = 422, message = "参数错误"),
+            @ApiResponse(code = 500, message = "服务器错误")
+    })
+    public Response<Object> Item(@RequestParam Integer itemId) {
+        return new Response<>(200, "修改成功", new HashMap<String,RepairItem>(){{
+            put("repairItem",repairItemService.getRepairItem(itemId));
+        }});
+    }
+
     @ApiOperation("取得维修内容   可查询全部，特定工种，特定内容，或工种及内容")
     @RequestMapping(value = "/get-repair-items", method = RequestMethod.GET)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "登记客户信息成功"),
             @ApiResponse(code = 403, message = "权限不足"),
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")

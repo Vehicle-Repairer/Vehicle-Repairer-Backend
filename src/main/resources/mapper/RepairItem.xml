@@ -77,4 +77,10 @@
           and item_name = #{itemName,jdbcType=VARCHAR}
         order by item_id
     </select>
+
+    <select id="selectItemById" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
+        select *
+        from vehicle_repairer.public.repair_item
+        where item_id = #{itemId,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -15,7 +15,7 @@ public class Assignment implements Serializable {
     private Integer assignmentId;
     private Integer attorneyId;
     private Integer itemId;
-    private Integer repairmanId;
+    private String repairmanId;
     private Boolean isFinished;
 
     public Assignment(Integer attorneyId, Integer itemId,Boolean isFinished) {
@@ -48,11 +48,11 @@ public class Assignment implements Serializable {
         this.itemId = itemId;
     }
 
-    public Integer getRepairmanId() {
+    public String getRepairmanId() {
         return repairmanId;
     }
 
-    public void setRepairmanId(Integer repairmanId) {
+    public void setRepairmanId(String repairmanId) {
         this.repairmanId = repairmanId;
     }
 

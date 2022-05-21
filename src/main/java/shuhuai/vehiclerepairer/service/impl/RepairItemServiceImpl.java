@@ -43,6 +43,17 @@ public class RepairItemServiceImpl implements RepairItemService {
     }
 
     @Override
+    public RepairItem getRepairItem(Integer itemId) {
+        RepairItem repairItem;
+        try {
+            repairItem = repairItemMapper.selectItemById(itemId);
+        } catch (Exception error) {
+            throw new ServerException("服务器错误");
+        }
+        return repairItem;
+    }
+
+    @Override
     public List<RepairItem> getAllRepairItems() {
         return repairItemMapper.selectAllItems();
     }

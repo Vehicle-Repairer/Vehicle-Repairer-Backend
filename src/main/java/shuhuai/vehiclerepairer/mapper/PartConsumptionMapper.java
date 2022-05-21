@@ -15,6 +15,8 @@ public interface PartConsumptionMapper {
 
     List<Consumption> selectConsumptionByAssignmentId(Integer assignmentId);
 
-    BigDecimal getTotalPrice(Integer assignmentId);
+    BigDecimal getAssignmentPrice(Integer assignmentId);
+
+    BigDecimal getAttorneyPrice(Integer attorneyId);
 
 }

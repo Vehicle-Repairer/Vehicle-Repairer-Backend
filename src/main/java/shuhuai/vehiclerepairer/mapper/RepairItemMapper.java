@@ -12,6 +12,8 @@ public interface RepairItemMapper {
 
     Integer updateRepairItemById(RepairItem repairItem);
 
+    RepairItem selectItemById(Integer itemId);
+
     List<RepairItem> selectAllItems();
 
     List<RepairItem> selectItemsByItemName(String itemName);

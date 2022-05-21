@@ -2,6 +2,7 @@ package shuhuai.vehiclerepairer.service.impl;
 
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Attorney;
+import shuhuai.vehiclerepairer.entity.RepairItem;
 import shuhuai.vehiclerepairer.mapper.AttorneyMapper;
 import shuhuai.vehiclerepairer.service.AttorneyService;
 import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
@@ -59,5 +60,29 @@ public class AttorneyServiceImpl implements AttorneyService {
             throw new ParamsException("参数错误");
         }
         return attorneyMapper.selectAttorneyBySalesmanId(salesmanId);
+    }
+
+    @Override
+    public void updateAttorney(Attorney attorney) {
+        Integer result;
+        try {
+            result = attorneyMapper.updateAttorneyByAttorneyId(attorney);
+        }catch (Exception error) {
+            throw new ServerException("服务器错误");
+        }
+        if (result != 1) {
+            throw new ServerException("服务器错误");
+        }
+    }
+
+    @Override
+    public Attorney selectAttorneyById(Integer id) {
+        Attorney attorney;
+        try {
+            attorney = attorneyMapper.selectAttorneyById(id);
+        } catch (Exception error) {
+            throw new ServerException("服务器错误");
+        }
+        return attorney;
     }
 }

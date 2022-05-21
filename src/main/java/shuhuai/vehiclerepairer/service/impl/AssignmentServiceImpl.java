@@ -10,6 +10,7 @@ import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,6 +39,33 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new ParamsException("参数错误");
         }
         return assignmentMapper.selectAssignmentByAttorneyId(attorneyId);
+    }
+
+    @Override
+    public List<Assignment> getAssignmentByRepairman(String repairmanId) {
+        TokenValidator.checkRole(Role.维修员);
+        if (repairmanId == null) {
+            throw new ParamsException("参数错误");
+        }
+        return assignmentMapper.selectAssignmentByRepairMan(repairmanId);
+    }
+
+    @Override
+    public void updateAssignment(Assignment assignment) {
+        Integer result;
+        try {
+            result = assignmentMapper.updateAssignmentByAssignmentId(assignment);
+        }catch (Exception error) {
+            throw new ServerException("服务器错误");
+        }
+        if (result != 1) {
+            throw new ServerException("服务器错误");
+        }
+    }
+
+    @Override
+    public BigDecimal attorneyRepairmanPrice(Integer attorneyId) {
+        return assignmentMapper.attorneyRepairmanPrice(attorneyId);
     }
 
 }
