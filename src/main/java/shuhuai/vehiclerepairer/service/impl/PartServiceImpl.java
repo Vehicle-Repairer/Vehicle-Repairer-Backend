@@ -17,12 +17,18 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public void addPart(String partName, BigDecimal partPrice) {
+        if(partName == null || partName.equals("")){
+            throw new ServerException("请输入配件名称");
+        }
+        if(partPrice == null){
+            throw new ServerException("请输入零件价格");
+        }
         Integer result = 1;
         try {
             Parts part = new Parts(partName, partPrice);
             result = partsMapper.insertPartSelective(part);
         } catch (Exception error) {
-            error.printStackTrace();
+            throw new ServerException("添加失败");
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -36,6 +42,9 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public void updatePart(Parts part) {
+        if(part == null){
+            throw new ServerException("请输入配件信息");
+        }
         Integer result;
         try {
             result = partsMapper.updatePartSelectiveById(part);

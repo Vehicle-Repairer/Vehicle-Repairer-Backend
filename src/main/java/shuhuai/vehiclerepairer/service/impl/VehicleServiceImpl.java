@@ -1,5 +1,6 @@
 package shuhuai.vehiclerepairer.service.impl;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Vehicle;
 import shuhuai.vehiclerepairer.mapper.VehicleMapper;
@@ -9,6 +10,7 @@ import shuhuai.vehiclerepairer.type.Role;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,7 +29,10 @@ public class VehicleServiceImpl implements VehicleService {
         try {
             result = vehicleMapper.insertVehicleSelective(vehicle);
         } catch (Exception error) {
-            error.printStackTrace();
+            if(error instanceof DuplicateKeyException){
+                throw new ServerException("车辆已存在");
+            }
+            throw new ServerException("服务器错误");
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

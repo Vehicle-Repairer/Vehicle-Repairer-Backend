@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
                 result = customerMapper.insertCustomerSelective(customer);
         }catch (Exception error) {
-            error.printStackTrace();
+            throw new ServerException("添加失败");
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

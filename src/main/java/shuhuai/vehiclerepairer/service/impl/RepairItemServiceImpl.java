@@ -17,12 +17,15 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public void addRepairItem(String itemName, Integer needTime, String profession) {
-        Integer result =1;
+        if(itemName == null || needTime == null || profession == null){
+            throw new ServerException("参数缺少");
+        }
+        Integer result;
         try {
             RepairItem repairItem = new RepairItem(itemName, needTime, profession);
             result = repairItemMapper.insertRepairItemSelective(repairItem);
         } catch (Exception error) {
-            error.printStackTrace();
+            throw new ServerException("添加失败");
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -44,6 +47,9 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public RepairItem getRepairItem(Integer itemId) {
+        if (itemId == null) {
+            throw new ServerException("参数缺少");
+        }
         return repairItemMapper.selectItemById(itemId);
     }
 
@@ -54,16 +60,25 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public List<RepairItem> getRepairItemsByProfession(String profession) {
+        if (profession == null) {
+            throw new ServerException("参数缺少");
+        }
         return repairItemMapper.selectItemsByProfession(profession);
     }
 
     @Override
     public List<RepairItem> getRepairItemsByItemName(String itemName) {
+        if(itemName == null){
+            throw new ServerException("参数缺少");
+        }
         return repairItemMapper.selectItemsByItemName(itemName);
     }
 
     @Override
     public List<RepairItem> getRepairItemsByProAndName(String profession, String itemName) {
+        if(profession == null || itemName == null){
+            throw new ServerException("参数缺少");
+        }
         return repairItemMapper.selectItemsByProfessionAndName(profession, itemName);
     }
 }
