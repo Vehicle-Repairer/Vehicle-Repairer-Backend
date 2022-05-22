@@ -24,8 +24,12 @@ public class AssignmentServiceImpl implements AssignmentService {
         TokenValidator.checkRole(Role.业务员);
         Integer result;
         Assignment assignment = new Assignment(attorneyId, itemId, repairmanId,isFinished);
-        result = assignmentMapper.insertAssignmentSelective(assignment);
-
+        result = 1;
+        try {
+                result = assignmentMapper.insertAssignmentSelective(assignment);
+        }catch (Exception error) {
+            error.printStackTrace();
+        }
         if (result != 1) {
             throw new ServerException("服务器错误");
         }
@@ -52,11 +56,11 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public void updateAssignment(Assignment assignment) {
-        Integer result;
+        Integer result = 1;
         try {
             result = assignmentMapper.updateAssignmentByAssignmentId(assignment);
         }catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

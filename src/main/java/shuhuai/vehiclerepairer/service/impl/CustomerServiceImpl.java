@@ -27,7 +27,12 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ParamsException("参数错误");
         }
         Customer customer = new Customer(customerName, customerType, discountRate, contactPerson, phone);
-        Integer result = customerMapper.insertCustomerSelective(customer);
+        Integer result =1;
+        try {
+                result = customerMapper.insertCustomerSelective(customer);
+        }catch (Exception error) {
+            error.printStackTrace();
+        }
         if (result != 1) {
             throw new ServerException("服务器错误");
         }

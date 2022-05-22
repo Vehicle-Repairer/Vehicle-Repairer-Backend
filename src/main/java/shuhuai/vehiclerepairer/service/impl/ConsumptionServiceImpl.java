@@ -18,12 +18,12 @@ public class ConsumptionServiceImpl implements ConsumptionService {
 
     @Override
     public void addConsumption(Integer assignmentId, Integer partId, Integer partAmount) {
-        Integer result;
+        Integer result = 1;
         try {
             Consumption consumption = new Consumption(assignmentId, partId, partAmount);
             result = partConsumptionMapper.insertConsumptionSelective(consumption);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -32,11 +32,11 @@ public class ConsumptionServiceImpl implements ConsumptionService {
 
     @Override
     public void updateConsumption(Consumption consumption) {
-        Integer result;
+        Integer result = 1;
         try {
             result = partConsumptionMapper.updateConsumptionById(consumption);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

@@ -23,11 +23,11 @@ public class VehicleServiceImpl implements VehicleService {
             throw new IllegalArgumentException("参数错误");
         }
         Vehicle vehicle = new Vehicle(frameNumber, licenseNumber, customerId, color, vehicleModel, vehicleType);
-        Integer result;
+        Integer result = 1;
         try {
             result = vehicleMapper.insertVehicleSelective(vehicle);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

@@ -17,12 +17,12 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public void addPart(String partName, BigDecimal partPrice) {
-        Integer result;
+        Integer result = 1;
         try {
             Parts part = new Parts(partName, partPrice);
             result = partsMapper.insertPartSelective(part);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");

@@ -17,12 +17,12 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public void addRepairItem(String itemName, Integer needTime, String profession) {
-        Integer result;
+        Integer result =1;
         try {
             RepairItem repairItem = new RepairItem(itemName, needTime, profession);
             result = repairItemMapper.insertRepairItemSelective(repairItem);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -31,11 +31,11 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public void updateRepairItem(RepairItem repairItem) {
-        Integer result;
+        Integer result = 1;
         try {
             result = repairItemMapper.updateRepairItemById(repairItem);
         } catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
@@ -44,13 +44,7 @@ public class RepairItemServiceImpl implements RepairItemService {
 
     @Override
     public RepairItem getRepairItem(Integer itemId) {
-        RepairItem repairItem;
-        try {
-            repairItem = repairItemMapper.selectItemById(itemId);
-        } catch (Exception error) {
-            throw new ServerException("服务器错误");
-        }
-        return repairItem;
+        return repairItemMapper.selectItemById(itemId);
     }
 
     @Override

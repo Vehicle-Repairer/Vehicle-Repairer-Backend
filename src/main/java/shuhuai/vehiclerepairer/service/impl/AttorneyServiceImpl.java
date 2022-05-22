@@ -36,11 +36,11 @@ public class AttorneyServiceImpl implements AttorneyService {
         }
         Attorney attorney = new Attorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, salesmanId, manName, isFinished, detailedFault,
                 inFactoryTime,payType);
-        Integer result;
+        Integer result = 1;
         try {
             result = attorneyMapper.insertAttorneySelective(attorney);
         }catch (Exception error) {
-            throw new ServerException("服务器错误");
+            error.printStackTrace();
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
