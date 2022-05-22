@@ -40,9 +40,14 @@ public class TestController extends BaseController {
     @RequestMapping(value = "/pull-backend", method = RequestMethod.GET)
     public Response<Object> getBackend() {
         try {
-            Process process = Runtime.getRuntime().exec("sh ~/autoRunSpringboot.sh");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            Process process = Runtime.getRuntime().exec("sh /home/lvzhi/autoRunSpringboot.sh");
+            int exitValue = process.waitFor();
+            if (0 != exitValue) {
+                System.out.println("call shell failed. error code is :" + exitValue);
+            }
+            System.out.println("ss");
+        } catch (Exception  e) {
+            e.printStackTrace();
         }
         return new Response<>(200, "拉取后端", null);
     }
