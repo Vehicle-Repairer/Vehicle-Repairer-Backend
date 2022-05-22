@@ -83,6 +83,11 @@
         where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
         order by assignment_id desc
     </select>
+    <select id="selectAssignmentById" resultType="shuhuai.vehiclerepairer.entity.Assignment">
+        select *
+        from vehicle_repairer.public.assignment
+        where assignment_id = #{assignmentId,jdbcType=INTEGER}
+    </select>
     <select id="attorneyRepairmanPrice" resultType="java.math.BigDecimal">
         select sum(repairman.hour_cost * repair_item.need_time)
         from vehicle_repairer.public.repairman,

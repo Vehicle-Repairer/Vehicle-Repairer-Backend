@@ -18,4 +18,6 @@ public interface AssignmentMapper {
     List<Assignment> selectAssignmentByRepairMan(String repairmanId);
 
     BigDecimal attorneyRepairmanPrice(Integer attorneyId);
+
+    Assignment selectAssignmentById(Integer assignmentId);
 }

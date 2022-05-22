@@ -31,6 +31,11 @@
         from vehicle_repairer.public.parts
         order by part_id
     </select>
+    <select id="selectPartById" resultType="shuhuai.vehiclerepairer.entity.Parts">
+        select *
+        from vehicle_repairer.public.parts
+        where part_id = #{partId,jdbcType=INTEGER}
+    </select>
     <update id="updatePartSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Parts">
         update vehicle_repairer.public.parts
         <set>

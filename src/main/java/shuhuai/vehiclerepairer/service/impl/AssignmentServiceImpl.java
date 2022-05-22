@@ -2,7 +2,11 @@ package shuhuai.vehiclerepairer.service.impl;
 
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Assignment;
+import shuhuai.vehiclerepairer.entity.Attorney;
 import shuhuai.vehiclerepairer.mapper.AssignmentMapper;
+import shuhuai.vehiclerepairer.mapper.AttorneyMapper;
+import shuhuai.vehiclerepairer.mapper.RepairItemMapper;
+import shuhuai.vehiclerepairer.mapper.RepairmanMapper;
 import shuhuai.vehiclerepairer.service.AssignmentService;
 import shuhuai.vehiclerepairer.service.excep.common.ParamsException;
 import shuhuai.vehiclerepairer.service.excep.common.ServerException;
@@ -18,9 +22,27 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Resource
     private AssignmentMapper assignmentMapper;
+    @Resource
+    private AttorneyMapper attorneyMapper;
+    @Resource
+    private RepairItemMapper repairItemMapper;
+    @Resource
+    private RepairmanMapper repairmanMapper;
 
     @Override
     public Integer addAssignment(Integer attorneyId,Integer itemId,Boolean isFinished,String repairmanId) {
+        if(attorneyId == null || itemId == null || isFinished == null || repairmanId == null) {
+            throw new ParamsException("参数缺少");
+        }
+        if(attorneyMapper.selectAttorneyById(attorneyId) == null) {
+            throw new ParamsException("委托书编号错误");
+        }
+        if(repairItemMapper.selectItemById(itemId) == null) {
+            throw new ParamsException("维修项目编号错误");
+        }
+        if(repairmanMapper.selectRepairmanById(repairmanId) == null) {
+            throw new ParamsException("维修员编号错误");
+        }
         TokenValidator.checkRole(Role.业务员);
         Integer result;
         Assignment assignment = new Assignment(attorneyId, itemId, repairmanId,isFinished);
@@ -28,7 +50,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         try {
                 result = assignmentMapper.insertAssignmentSelective(assignment);
         }catch (Exception error) {
-            error.printStackTrace();
+            throw new ServerException("添加失败");
         }
         if (result != 1) {
             throw new ServerException("服务器错误");
