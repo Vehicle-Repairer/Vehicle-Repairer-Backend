@@ -13,6 +13,7 @@ import shuhuai.vehiclerepairer.utils.TokenValidator;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/test")
@@ -33,5 +34,16 @@ public class TestController extends BaseController {
     public Response<Object> validateToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").split(" ")[1];
         return new Response<>(200, "认证成功", tokenValidator.parseToken(token));
+    }
+
+    @ApiOperation("拉取后端")
+    @RequestMapping(value = "/pull-backend", method = RequestMethod.GET)
+    public Response<Object> getBackend() {
+        try {
+            Process process = Runtime.getRuntime().exec("sh ~/autoRunSpringboot.sh");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new Response<>(200, "拉取后端", null);
     }
 }
