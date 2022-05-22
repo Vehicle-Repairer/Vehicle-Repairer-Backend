@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/assignment")
 @Api(tags = "维修派工单接口")
-public class AssignmentController {
+public class AssignmentController extends BaseController {
     @Resource
     private AssignmentService assignmentService;
 

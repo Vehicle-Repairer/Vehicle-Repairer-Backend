@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/attorney")
 @Api(tags = "维修委托书接口")
-public class AttorneyController {
+public class AttorneyController extends BaseController {
     @Resource
     private AttorneyService attorneyService;
     @Resource
