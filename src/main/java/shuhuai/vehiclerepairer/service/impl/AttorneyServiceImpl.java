@@ -33,8 +33,8 @@ public class AttorneyServiceImpl implements AttorneyService {
                                Integer range, String fuelAmount, String salesmanId, String manName, Boolean isFinished, String detailedFault,
                                Date inFactoryTime, String payType) {
         TokenValidator.checkRole(Role.业务员);
-        if (licenseNumber == null || repairType == null || repairAmount == null || range == 0 || fuelAmount == null ||
-                manName == null || detailedFault == null || inFactoryTime == null) {
+        if (customerId == null || licenseNumber == null || repairType == null || repairAmount == null || range == 0 || fuelAmount == null ||
+                 detailedFault == null ) {
             throw new ParamsException("参数缺少");
         }
         if (!repairType.equals("普通") && !repairType.equals("加急")) {
