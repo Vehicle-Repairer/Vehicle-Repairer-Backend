@@ -22,6 +22,8 @@ public class AttorneyServiceTests {
     public void testAddAttorney() {
         Integer attorneyId;
         Date now = new Date();
+        System.out.println(now);
+
         try {
             attorneyId = attorneyService.addAttorney(1, "ABCDEF", "123456", "加急", "小修",
                     2000, "3/4", "19120210", "凌佳伟", false, "车头损坏",

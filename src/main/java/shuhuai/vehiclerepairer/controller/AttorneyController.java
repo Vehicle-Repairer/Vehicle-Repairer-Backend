@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import shuhuai.vehiclerepairer.entity.Assignment;
-import shuhuai.vehiclerepairer.entity.Attorney;
-import shuhuai.vehiclerepairer.entity.Customer;
-import shuhuai.vehiclerepairer.entity.FinalPrice;
+import shuhuai.vehiclerepairer.entity.*;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.*;
 import shuhuai.vehiclerepairer.utils.TokenValidator;
@@ -36,6 +33,8 @@ public class AttorneyController {
     private AssignmentService assignmentService;
     @Resource
     private CustomerService customerService;
+    @Resource
+    private UserService userService;
 
     @ApiOperation("添加维修委托书")
     @RequestMapping(value = "/add-attorney", method = RequestMethod.POST)
@@ -48,14 +47,15 @@ public class AttorneyController {
 
     public Response<Object> addAttorney(@RequestParam Integer customerId, @RequestParam String frameNumber, @RequestParam String licenseNumber,
                                         @RequestParam String repairType, @RequestParam String repairAmount, @RequestParam Integer range,
-                                        @RequestParam String fuelAmount, @RequestParam String manName, @RequestParam Boolean isFinished,
+                                        @RequestParam String fuelAmount, @RequestParam Boolean isFinished,
                                         @RequestParam String detailedFault,
-                                        @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-                                        @RequestParam Date inFactoryTime,
                                         @RequestParam String payType) {
         String id = TokenValidator.getUser().get("id");
+        Salesman salesman = userService.getSalesman(id);
+        String manName = salesman.getManName();
+        Date inFactoryTime = new Date();
         attorneyService.addAttorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, id, manName, isFinished, detailedFault,
-                inFactoryTime, payType);
+                 inFactoryTime,payType);
         return new Response<>(200, "添加成功", null);
     }
 

@@ -34,6 +34,7 @@ public class AttorneyServiceImpl implements AttorneyService {
         if (!repairAmount.equals("小修") && !repairAmount.equals("中修") && !repairAmount.equals("大修")) {
             throw new ParamsException("参数错误");
         }
+
         Attorney attorney = new Attorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, salesmanId, manName, isFinished, detailedFault,
                 inFactoryTime,payType);
         Integer result = 1;
