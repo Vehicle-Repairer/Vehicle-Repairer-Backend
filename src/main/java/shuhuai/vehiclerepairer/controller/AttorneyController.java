@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,13 +45,17 @@ public class AttorneyController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
+
     public Response<Object> addAttorney(@RequestParam Integer customerId, @RequestParam String frameNumber, @RequestParam String licenseNumber,
                                         @RequestParam String repairType, @RequestParam String repairAmount, @RequestParam Integer range,
                                         @RequestParam String fuelAmount, @RequestParam String manName, @RequestParam Boolean isFinished,
-                                        @RequestParam String detailedFault, @RequestParam Date inFactoryTime, @RequestParam Double finalPrice) {
+                                        @RequestParam String detailedFault,
+                                        @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+                                        @RequestParam Date inFactoryTime,
+                                        @RequestParam String payType) {
         String id = TokenValidator.getUser().get("id");
         attorneyService.addAttorney(customerId, frameNumber, licenseNumber, repairType, repairAmount, range, fuelAmount, id, manName, isFinished, detailedFault,
-                inFactoryTime, finalPrice);
+                inFactoryTime, payType);
         return new Response<>(200, "添加成功", null);
     }
 

@@ -15,6 +15,7 @@
         <result column="is_finished" jdbcType="BIT" javaType="Boolean" property="isFinished"/>
         <result column="detailed_fault" jdbcType="VARCHAR" javaType="String" property="detailedFault"/>
         <result column="in_factory_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="inFactoryTime"/>
+        <result column="pay_type" jdbcType="VARCHAR" javaType="String" property="payType"/>
         <result column="final_price" jdbcType="DOUBLE" javaType="Double" property="finalPrice"/>
     </resultMap>
     <insert id="insertAttorneySelective" keyProperty="attorneyId" useGeneratedKeys="true"
@@ -63,6 +64,9 @@
             <if test="finalPrice != null">
                 final_price,
             </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="attorneyId != null">
@@ -106,6 +110,9 @@
             </if>
             <if test="finalPrice != null">
                 #{finalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -153,6 +160,9 @@
             </if>
             <if test="finalPrice != null">
                 final_price = #{finalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
             </if>
         </set>
         where attorney_id = #{attorneyId,jdbcType=INTEGER}

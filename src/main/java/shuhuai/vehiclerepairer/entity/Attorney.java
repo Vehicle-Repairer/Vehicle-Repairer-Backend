@@ -26,10 +26,19 @@ public class Attorney implements Serializable {
     private String detailedFault;
     private Date inFactoryTime;
     private Double finalPrice;
+    private String payType;
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
 
     public Attorney(Integer customerId, String frameNumber, String licenseNumber, String repairType, String repairAmount,
                     Integer range, String fuelAmount, String salesmanId, String manName, Boolean isFinished, String detailedFault,
-                    Date inFactoryTime, Double finalPrice) {
+                    Date inFactoryTime, String payType) {
         this.customerId = customerId;
         this.frameNumber = frameNumber;
         this.licenseNumber = licenseNumber;
@@ -42,7 +51,7 @@ public class Attorney implements Serializable {
         this.isFinished = isFinished;
         this.detailedFault = detailedFault;
         this.inFactoryTime = inFactoryTime;
-        this.finalPrice = finalPrice;
+        this.payType = payType;
 
 
     }

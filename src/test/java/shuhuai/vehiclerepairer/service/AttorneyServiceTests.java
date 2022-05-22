@@ -25,7 +25,7 @@ public class AttorneyServiceTests {
         try {
             attorneyId = attorneyService.addAttorney(1, "ABCDEF", "123456", "加急", "小修",
                     2000, "3/4", "19120210", "凌佳伟", false, "车头损坏",
-                    now, 0.0);
+                    now, "自付");
             log.info("添加维修委托书成功" + attorneyId.toString() + "。");
         } catch (BaseException error) {
             log.error(error.getMessage());
