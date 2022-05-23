@@ -95,10 +95,18 @@ public class AssignmentController extends BaseController {
             Repairman repairman = repairmanService.getRepairman(assignment.getRepairmanId());
             Attorney attorney = attorneyService.selectAttorneyById(assignment.getAttorneyId());
             repairmanAssigmentShow repairmanAssigmentShow = new repairmanAssigmentShow(
+                    assignment.getAssignmentId(),
                     attorney.getFrameNumber(),
-                    repairItem.getItemName(),
                     repairman.getManName(),
-                    assignment.isFinished());
+                    repairItem.getItemName(),
+                    attorney.getRepairType(),
+                    repairItem.getNeedTime().toString(),
+                    attorney.getDetailedFault(),
+                    "未完成");
+            if (assignment.isFinished() )
+            {
+                repairmanAssigmentShow.setIsFinished("已完成");
+            }
             assignmentShowList.add(repairmanAssigmentShow);
         }
         return new Response<>(200, "查询该委托书的维修派工单成功", new HashMap<String, Object>() {{

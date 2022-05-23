@@ -116,7 +116,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateCustomerSelectiveByAttorneyId" parameterType="shuhuai.vehiclerepairer.entity.Attorney">
+    <update id="updateAttorneyByAttorneyId" parameterType="shuhuai.vehiclerepairer.entity.Attorney">
         update attorney
         <set>
             <if test="attorneyId != null">

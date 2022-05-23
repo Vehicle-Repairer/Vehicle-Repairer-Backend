@@ -70,6 +70,14 @@ public class AttorneyController extends BaseController {
 
     public Response<Object> getAttorneyByCustomerId(@RequestParam Integer customerId) {
         List<Attorney> attorneys = attorneyService.getAttorneyByCustomerId(customerId);
+        for (Attorney attorney : attorneys) {
+            if(attorney.getFinished()){
+                attorney.setIsFinishedString("已完成");
+            }
+            else{
+                attorney.setIsFinishedString("未完成");
+            }
+        }
         return new Response<>(200, "查询客户维修委托书成功", new HashMap<String, Object>() {{
             put("attorneys", attorneys);
         }});
@@ -88,6 +96,14 @@ public class AttorneyController extends BaseController {
     public Response<Object> getAttorneyBySalesmanId() {
         String id = TokenValidator.getUser().get("id");
         List<Attorney> attorneys = attorneyService.getAttorneyBySalesmanId(id);
+        for (Attorney attorney : attorneys) {
+            if(attorney.getFinished()){
+                attorney.setIsFinishedString("已完成");
+            }
+            else{
+                attorney.setIsFinishedString("未完成");
+            }
+        }
         return new Response<>(200, "查询业务员的维修委托书成功", new HashMap<String, Object>() {{
             put("attorneys", attorneys);
         }});

@@ -27,6 +27,15 @@ public class Attorney implements Serializable {
     private Date inFactoryTime;
     private Double finalPrice;
     private String payType;
+    private String IsFinishedString;
+
+    public String getIsFinishedString() {
+        return IsFinishedString;
+    }
+
+    public void setIsFinishedString(String isFinishedString) {
+        IsFinishedString = isFinishedString;
+    }
 
     public String getPayType() {
         return payType;

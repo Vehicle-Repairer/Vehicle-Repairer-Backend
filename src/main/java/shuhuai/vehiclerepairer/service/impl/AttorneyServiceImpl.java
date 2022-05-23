@@ -92,6 +92,7 @@ public class AttorneyServiceImpl implements AttorneyService {
         try {
             result = attorneyMapper.updateAttorneyByAttorneyId(attorney);
         }catch (Exception error) {
+            System.out.println(error.getMessage());
             throw new ServerException("服务器错误");
         }
         if (result != 1) {
