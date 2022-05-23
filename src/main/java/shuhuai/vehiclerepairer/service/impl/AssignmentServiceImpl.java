@@ -3,6 +3,8 @@ package shuhuai.vehiclerepairer.service.impl;
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Assignment;
 import shuhuai.vehiclerepairer.entity.Attorney;
+import shuhuai.vehiclerepairer.entity.RepairItem;
+import shuhuai.vehiclerepairer.entity.Repairman;
 import shuhuai.vehiclerepairer.mapper.AssignmentMapper;
 import shuhuai.vehiclerepairer.mapper.AttorneyMapper;
 import shuhuai.vehiclerepairer.mapper.RepairItemMapper;
@@ -16,6 +18,7 @@ import shuhuai.vehiclerepairer.utils.TokenValidator;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
@@ -42,6 +45,17 @@ public class AssignmentServiceImpl implements AssignmentService {
         }
         if(repairmanMapper.selectRepairmanById(repairmanId) == null) {
             throw new ParamsException("维修员编号错误");
+        }
+        RepairItem repairItem = repairItemMapper.selectItemById(itemId);
+        Repairman repairman = repairmanMapper.selectRepairmanById(repairmanId);
+        if(!Objects.equals(repairItem.getProfession(), repairman.getProfession())) {
+            throw new ParamsException("维修员专业与维修项目不符");
+        }
+        List<Assignment> assignments = assignmentMapper.selectAssignmentByAttorneyId(attorneyId);
+        for(Assignment assignment : assignments) {
+            if(Objects.equals(assignment.getItemId(), itemId)) {
+                throw new ParamsException("该项目已存在");
+            }
         }
         TokenValidator.checkRole(Role.业务员);
         Integer result;

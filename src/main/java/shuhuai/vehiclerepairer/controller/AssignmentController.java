@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import shuhuai.vehiclerepairer.entity.Assignment;
+import shuhuai.vehiclerepairer.entity.*;
 import shuhuai.vehiclerepairer.response.Response;
 import shuhuai.vehiclerepairer.service.AssignmentService;
+import shuhuai.vehiclerepairer.service.AttorneyService;
+import shuhuai.vehiclerepairer.service.RepairItemService;
+import shuhuai.vehiclerepairer.service.RepairmanService;
 
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +29,12 @@ import java.util.List;
 public class AssignmentController extends BaseController {
     @Resource
     private AssignmentService assignmentService;
+    @Resource
+    private RepairItemService repairItemService;
+    @Resource
+    private RepairmanService repairmanService;
+    @Resource
+    private AttorneyService attorneyService;
 
     @ApiOperation("添加维修派工单")
     @RequestMapping(value = "/add-assignment", method = RequestMethod.POST)
@@ -51,8 +61,20 @@ public class AssignmentController extends BaseController {
 
     public Response<Object> getAssignmentByAttorneyId(@RequestParam Integer attorneyId) {
         List<Assignment> assignments = assignmentService.getAssignmentByAttorneyId(attorneyId);
+        List<assignmentShow> assignmentShowList = new java.util.ArrayList<>(Collections.emptyList());
+        for(Assignment assignment:assignments) {
+            RepairItem repairItem = repairItemService.getRepairItem(assignment.getItemId());
+            Repairman repairman = repairmanService.getRepairman(assignment.getRepairmanId());
+            assignmentShow assignmentShow = new assignmentShow(repairItem.getItemName(),
+                    repairItem.getNeedTime(),
+                    repairman.getManName(),
+                    repairItem.getProfession(),
+                    repairman.getPhone(),
+                    assignment.isFinished());
+            assignmentShowList.add(assignmentShow);
+        }
         return new Response<>(200, "查询该委托书的维修派工单成功", new HashMap<String, Object>() {{
-            put("assignments", assignments);
+            put("assignments", assignmentShowList);
         }});
     }
 
@@ -67,8 +89,20 @@ public class AssignmentController extends BaseController {
 
     public Response<Object> getAssignmentByRepairman(@RequestParam String repairmanId) {
         List<Assignment> assignments = assignmentService.getAssignmentByRepairman(repairmanId);
+        List<repairmanAssigmentShow> assignmentShowList = new java.util.ArrayList<>(Collections.emptyList());
+        for(Assignment assignment:assignments) {
+            RepairItem repairItem = repairItemService.getRepairItem(assignment.getItemId());
+            Repairman repairman = repairmanService.getRepairman(assignment.getRepairmanId());
+            Attorney attorney = attorneyService.selectAttorneyById(assignment.getAttorneyId());
+            repairmanAssigmentShow repairmanAssigmentShow = new repairmanAssigmentShow(
+                    attorney.getFrameNumber(),
+                    repairItem.getItemName(),
+                    repairman.getManName(),
+                    assignment.isFinished());
+            assignmentShowList.add(repairmanAssigmentShow);
+        }
         return new Response<>(200, "查询该委托书的维修派工单成功", new HashMap<String, Object>() {{
-            put("assignments", assignments);
+            put("assignments", assignmentShowList);
         }});
     }
 
