@@ -69,7 +69,7 @@ public class RepairmanController extends BaseController {
     public Response<Object> getRepairmans() {
         List<Repairman> repairmen = repairmanService.selectAllRepairman();
         return new Response<>(200, "获取维修员成功", new HashMap<String, List<Repairman>>() {{
-            put("维修员信息：", repairmen);
+            put("维修员信息", repairmen);
         }});
     }
 

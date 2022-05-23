@@ -130,7 +130,7 @@ public class PartsController extends BaseController {
         }
         BigDecimal price = consumptionService.getPartPrice(assignmentId);
         return new Response<>(200, "获取成功", new HashMap<String, BigDecimal>() {{
-            put("花费：", price);
+            put("花费", price);
         }});
     }
 }
