@@ -119,18 +119,6 @@ public class PartsController extends BaseController {
     })
     public Response<Object> getConsumptionByAssign(@RequestParam Integer assignmentId) {
         List<Consumption> consumptionList = consumptionService.getConsumptionsByAssignmentId(assignmentId);
-        List<ConsumptionShow> consumptionShowList = new java.util.ArrayList<>(Collections.emptyList());
-        for(Consumption consumption : consumptionList) {
-            Assignment assignment = assignmentService.getAssignmentById(consumption.getAssignmentId());
-            RepairItem repairItem = repairItemService.getRepairItem(assignment.getItemId());
-            Parts parts = partService.getPart(consumption.getPartId());
-            ConsumptionShow consumptionShow = new ConsumptionShow(consumption.getConsumptionId(),
-                    assignment.getAssignmentId(),
-                    repairItem.getItemName(),
-                    parts.getPartName(),
-                    consumption.getPartAmount());
-            consumptionShowList.add(consumptionShow);
-        }
         List<ConsumptionShow> consumptionShowList2 = consumptionService.getConsumptionShowByAssignmentId(assignmentId);
         return new Response<>(200, "获取成功", new HashMap<String, List<ConsumptionShow>>() {{
             put("零件消耗信息", consumptionShowList2);
@@ -146,10 +134,6 @@ public class PartsController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
     public Response<Object> getPriceByAssign(@RequestParam Integer assignmentId) {
-        List<Consumption> consumptionList = consumptionService.getConsumptionsByAssignmentId(assignmentId);
-        if (consumptionList.size() == 0) {
-            return new Response<>(400, "消耗情况不存在", null);
-        }
         BigDecimal price = consumptionService.getPartPrice(assignmentId);
         return new Response<>(200, "获取成功", new HashMap<String, BigDecimal>() {{
             put("花费", price);

@@ -142,12 +142,15 @@ public class AttorneyController extends BaseController {
         if (assignment.size() == 0) {
             return new Response<>(200, "没有维修派工单", null);
         }
-        BigDecimal part = consumptionService.getPartPrice(attorneyId);
+        BigDecimal part = new BigDecimal(0);
+        for(Assignment assignment1:assignment){
+            part = part.add(consumptionService.getPartPrice(assignment1.getAssignmentId()));
+        }
         BigDecimal man = assignmentService.attorneyRepairmanPrice(attorneyId);
         Customer customer = customerService.getCustomer(attorney.getCustomerId());
         double discount_rate = customer.getDiscountRate()/100;
         BigDecimal discount = new BigDecimal(discount_rate);
-        BigDecimal total = (part != null ? part.add(man) :man);
+        BigDecimal total = part.add(man);
         total = total.multiply(discount);
         FinalPrice finalPrice = new FinalPrice(man,part,discount_rate*100,total);
         return new Response<>(200, "价格获取成功",new HashMap<String, Object>() {{

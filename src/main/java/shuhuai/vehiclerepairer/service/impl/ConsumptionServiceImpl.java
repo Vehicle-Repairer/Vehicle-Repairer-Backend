@@ -77,6 +77,10 @@ public class ConsumptionServiceImpl implements ConsumptionService {
         if(assignmentId == null){
             throw new ServerException("参数缺少");
         }
+        List<Consumption> consumptions = partConsumptionMapper.selectConsumptionByAssignmentId(assignmentId);
+        if(consumptions.size() == 0){
+            return new BigDecimal(0);
+        }
         return partConsumptionMapper.getAssignmentPrice(assignmentId);
     }
 
