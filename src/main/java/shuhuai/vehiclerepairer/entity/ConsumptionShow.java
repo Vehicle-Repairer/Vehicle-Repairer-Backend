@@ -1,6 +1,5 @@
 package shuhuai.vehiclerepairer.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,18 +9,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @NoArgsConstructor
-public class Consumption implements Serializable {
-    private Integer consumptionId;
+public class ConsumptionShow  implements Serializable {
+    private  Integer consumptionId;
     private Integer assignmentId;
-    private Integer partId;
+    private  String repairItem;
+    private String partName;
     private Integer partAmount;
-
-    public Consumption(Integer assignmentId, Integer partId, Integer partAmount) {
-        this.assignmentId = assignmentId;
-        this.partId = partId;
-        this.partAmount = partAmount;
-    }
-
 
     public Integer getConsumptionId() {
         return consumptionId;
@@ -39,12 +32,20 @@ public class Consumption implements Serializable {
         this.assignmentId = assignmentId;
     }
 
-    public Integer getPartId() {
-        return partId;
+    public String getRepairItem() {
+        return repairItem;
     }
 
-    public void setPartId(Integer partId) {
-        this.partId = partId;
+    public void setRepairItem(String repairItem) {
+        this.repairItem = repairItem;
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public void setPartName(String partName) {
+        this.partName = partName;
     }
 
     public Integer getPartAmount() {

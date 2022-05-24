@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import shuhuai.vehiclerepairer.entity.Consumption;
-import shuhuai.vehiclerepairer.entity.Parts;
+import shuhuai.vehiclerepairer.entity.*;
 import shuhuai.vehiclerepairer.response.Response;
-import shuhuai.vehiclerepairer.service.ConsumptionService;
-import shuhuai.vehiclerepairer.service.PartService;
+import shuhuai.vehiclerepairer.service.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +27,16 @@ public class PartsController extends BaseController {
     private PartService partService;
     @Resource
     private ConsumptionService consumptionService;
+    @Resource
+    private AttorneyService attorneyService;
+    @Resource
+    private AssignmentService assignmentService;
+    @Resource
+    private CustomerService customerService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private RepairItemService repairItemService;
 
     @ApiOperation("所有零件")
     @RequestMapping(value = "/get-all-parts", method = RequestMethod.GET)
@@ -110,8 +119,20 @@ public class PartsController extends BaseController {
     })
     public Response<Object> getConsumptionByAssign(@RequestParam Integer assignmentId) {
         List<Consumption> consumptionList = consumptionService.getConsumptionsByAssignmentId(assignmentId);
-        return new Response<>(200, "获取成功", new HashMap<String, List<Consumption>>() {{
-            put("零件消耗信息", consumptionList);
+        List<ConsumptionShow> consumptionShowList = new java.util.ArrayList<>(Collections.emptyList());
+        for(Consumption consumption : consumptionList) {
+            Assignment assignment = assignmentService.getAssignmentById(consumption.getAssignmentId());
+            RepairItem repairItem = repairItemService.getRepairItem(assignment.getItemId());
+            Parts parts = partService.getPart(consumption.getPartId());
+            ConsumptionShow consumptionShow = new ConsumptionShow(consumption.getConsumptionId(),
+                    assignment.getAssignmentId(),
+                    repairItem.getItemName(),
+                    parts.getPartName(),
+                    consumption.getPartAmount());
+            consumptionShowList.add(consumptionShow);
+        }
+        return new Response<>(200, "获取成功", new HashMap<String, List<ConsumptionShow>>() {{
+            put("零件消耗信息", consumptionShowList);
         }});
     }
 

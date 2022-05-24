@@ -55,4 +55,9 @@ public class PartServiceImpl implements PartService {
             throw new ServerException("服务器错误");
         }
     }
+
+    @Override
+    public Parts getPart(int partId) {
+        return partsMapper.selectPartById(partId);
+    }
 }

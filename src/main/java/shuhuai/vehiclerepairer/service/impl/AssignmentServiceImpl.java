@@ -108,4 +108,9 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentMapper.attorneyRepairmanPrice(attorneyId);
     }
 
+    @Override
+    public Assignment getAssignmentById(Integer assignmentId) {
+        return assignmentMapper.selectAssignmentById(assignmentId);
+    }
+
 }

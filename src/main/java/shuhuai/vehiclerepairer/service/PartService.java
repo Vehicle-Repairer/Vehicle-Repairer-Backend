@@ -11,4 +11,6 @@ public interface PartService {
     List<Parts> getAllParts();
 
     void updatePart(Parts part);
+
+    Parts getPart(int partId);
 }

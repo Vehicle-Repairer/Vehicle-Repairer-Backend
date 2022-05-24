@@ -15,4 +15,6 @@ public interface AssignmentService {
     void updateAssignment(Assignment assignment);
 
     BigDecimal attorneyRepairmanPrice(Integer attorneyId);
+
+    Assignment getAssignmentById(Integer assignmentId);
 }
