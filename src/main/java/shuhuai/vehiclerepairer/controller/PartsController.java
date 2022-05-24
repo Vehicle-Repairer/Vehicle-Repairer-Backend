@@ -131,8 +131,9 @@ public class PartsController extends BaseController {
                     consumption.getPartAmount());
             consumptionShowList.add(consumptionShow);
         }
+        List<ConsumptionShow> consumptionShowList2 = consumptionService.getConsumptionShowByAssignmentId(assignmentId);
         return new Response<>(200, "获取成功", new HashMap<String, List<ConsumptionShow>>() {{
-            put("零件消耗信息", consumptionShowList);
+            put("零件消耗信息", consumptionShowList2);
         }});
     }
 

@@ -4,6 +4,7 @@ package shuhuai.vehiclerepairer.service.impl;
 import org.springframework.stereotype.Service;
 import shuhuai.vehiclerepairer.entity.Assignment;
 import shuhuai.vehiclerepairer.entity.Consumption;
+import shuhuai.vehiclerepairer.entity.ConsumptionShow;
 import shuhuai.vehiclerepairer.entity.Parts;
 import shuhuai.vehiclerepairer.mapper.AssignmentMapper;
 import shuhuai.vehiclerepairer.mapper.PartConsumptionMapper;
@@ -85,5 +86,17 @@ public class ConsumptionServiceImpl implements ConsumptionService {
             throw new ServerException("参数缺少");
         }
         return partConsumptionMapper.getAttorneyPrice(attorneyId);
+    }
+
+    @Override
+    public List<ConsumptionShow> getConsumptionShowByAssignmentId(Integer assignmentId) {
+        if(assignmentId == null){
+            throw new ServerException("参数缺少");
+        }
+        Assignment assignment = assignmentMapper.selectAssignmentById(assignmentId);
+        if(assignment == null){
+            throw new ServerException("派工单编号错误");
+        }
+        return partConsumptionMapper.getConsumptionShow(assignmentId);
     }
 }

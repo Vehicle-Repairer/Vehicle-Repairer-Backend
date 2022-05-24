@@ -78,12 +78,12 @@ public class AttorneyServiceImpl implements AttorneyService {
     }
 
     @Override
-    public List<Attorney> getAttorneyBySalesmanId(String salesmanId) {
+    public List<Attorney> getAttorneyBySalesmanId(String salesmanId, Boolean isFinished) {
         TokenValidator.checkRole(Role.业务员);
         if (salesmanId == null) {
             throw new ParamsException("参数错误");
         }
-        return attorneyMapper.selectAttorneyBySalesmanId(salesmanId);
+        return attorneyMapper.selectAttorneyBySalesmanId(salesmanId, isFinished);
     }
 
     @Override

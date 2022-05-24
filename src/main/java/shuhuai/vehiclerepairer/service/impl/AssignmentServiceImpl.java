@@ -82,12 +82,9 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public List<Assignment> getAssignmentByRepairman(String repairmanId) {
+    public List<Assignment> getAssignmentByRepairman(String repairmanId,Boolean isFinished) {
         TokenValidator.checkRole(Role.维修员);
-        if (repairmanId == null) {
-            throw new ParamsException("参数错误");
-        }
-        return assignmentMapper.selectAssignmentByRepairMan(repairmanId);
+        return assignmentMapper.selectAssignmentByRepairMan(repairmanId,isFinished);
     }
 
     @Override

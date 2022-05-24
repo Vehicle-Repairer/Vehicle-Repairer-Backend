@@ -1,6 +1,7 @@
 package shuhuai.vehiclerepairer.service;
 
 import shuhuai.vehiclerepairer.entity.Consumption;
+import shuhuai.vehiclerepairer.entity.ConsumptionShow;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ConsumptionService {
     BigDecimal getPartPrice(Integer assignmentId);
 
     BigDecimal getAttorneyPartPrice(Integer attorneyId);
+
+    List<ConsumptionShow> getConsumptionShowByAssignmentId(Integer assignmentId);
 }

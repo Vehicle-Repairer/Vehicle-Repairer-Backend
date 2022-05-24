@@ -15,7 +15,7 @@ public interface AssignmentMapper {
 
     List<Assignment> selectAssignmentByAttorneyId(Integer attorneyId);
 
-    List<Assignment> selectAssignmentByRepairMan(String repairmanId);
+    List<Assignment> selectAssignmentByRepairMan(String repairmanId, Boolean isFinished);
 
     BigDecimal attorneyRepairmanPrice(Integer attorneyId);
 

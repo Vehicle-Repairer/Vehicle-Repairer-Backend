@@ -82,6 +82,10 @@
         from customer
         where customer_id = #{customerId,jdbcType=INTEGER}
     </select>
+    <select id="selectAllCustomer" resultType="shuhuai.vehiclerepairer.entity.Customer">
+        select *
+        from customer
+    </select>
     <select id="selectCustomerByParam" resultType="shuhuai.vehiclerepairer.entity.Customer">
             <if test = "phone!= null and name==null and type==null">
                 select *

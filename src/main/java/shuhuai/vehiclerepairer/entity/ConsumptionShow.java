@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ConsumptionShow  implements Serializable {
     private  Integer consumptionId;
     private Integer assignmentId;
-    private  String repairItem;
+    private  String itemName;
     private String partName;
     private Integer partAmount;
 
@@ -32,12 +32,12 @@ public class ConsumptionShow  implements Serializable {
         this.assignmentId = assignmentId;
     }
 
-    public String getRepairItem() {
-        return repairItem;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setRepairItem(String repairItem) {
-        this.repairItem = repairItem;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getPartName() {

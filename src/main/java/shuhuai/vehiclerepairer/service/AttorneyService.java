@@ -13,7 +13,7 @@ public interface AttorneyService {
 
     List<Attorney> getAttorneyByCustomerId(Integer customerId);
 
-    List<Attorney> getAttorneyBySalesmanId(String salesmanId);
+    List<Attorney> getAttorneyBySalesmanId(String salesmanId, Boolean isFinished);
 
     void updateAttorney(Attorney attorney);
 

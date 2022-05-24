@@ -3,6 +3,7 @@ package shuhuai.vehiclerepairer.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import shuhuai.vehiclerepairer.entity.Consumption;
+import shuhuai.vehiclerepairer.entity.ConsumptionShow;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,4 +20,5 @@ public interface PartConsumptionMapper {
 
     BigDecimal getAttorneyPrice(Integer attorneyId);
 
+    List<ConsumptionShow> getConsumptionShow(Integer assignmentId);
 }

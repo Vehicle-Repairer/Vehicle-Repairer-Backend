@@ -16,7 +16,15 @@ public class assignmentShow implements Serializable {
     private String repairManName;
     private String profession;
     private String repairManPhone;
-    private Boolean isFinished;
+    private String status;
+
+    public assignmentShow(String repairItem, Integer needTime, String repairManName, String profession, String repairManPhone) {
+        this.repairItem = repairItem;
+        this.needTime = needTime;
+        this.repairManName = repairManName;
+        this.profession = profession;
+        this.repairManPhone = repairManPhone;
+    }
 
     public String getRepairItem() {
         return repairItem;
@@ -58,11 +66,11 @@ public class assignmentShow implements Serializable {
         this.repairManPhone = repairManPhone;
     }
 
-    public Boolean getFinished() {
-        return isFinished;
+    public String getStatus() {
+        return status;
     }
 
-    public void setFinished(Boolean finished) {
-        isFinished = finished;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -78,10 +78,19 @@
         where assignment_id = #{assignmentId,jdbcType=INTEGER}
     </select>
     <select id="selectAssignmentByRepairMan" resultType="shuhuai.vehiclerepairer.entity.Assignment">
+        <if test = "isFinished!= null ">
+            select *
+            from vehicle_repairer.public.assignment
+            where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
+            and is_finished = #{isFinished,jdbcType=BIT}
+            order by assignment_id desc
+        </if>
+        <if test = "isFinished == null ">
         select *
         from vehicle_repairer.public.assignment
         where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
         order by assignment_id desc
+        </if>
     </select>
     <select id="selectAssignmentById" resultType="shuhuai.vehiclerepairer.entity.Assignment">
         select *

@@ -93,9 +93,9 @@ public class AttorneyController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
 
-    public Response<Object> getAttorneyBySalesmanId() {
+    public Response<Object> getAttorneyBySalesmanId(Boolean isFinished) {
         String id = TokenValidator.getUser().get("id");
-        List<Attorney> attorneys = attorneyService.getAttorneyBySalesmanId(id);
+        List<Attorney> attorneys = attorneyService.getAttorneyBySalesmanId(id,isFinished);
         for (Attorney attorney : attorneys) {
             if(attorney.getFinished()){
                 attorney.setIsFinishedString("已完成");
@@ -135,6 +135,9 @@ public class AttorneyController extends BaseController {
 
     public Response<Object> totalPrice(@RequestParam Integer attorneyId) {
         Attorney attorney = attorneyService.selectAttorneyById(attorneyId);
+        if (attorney == null) {
+            return new Response<>(403, "维修委托书不存在", null);
+        }
         List<Assignment>  assignment = assignmentService.getAssignmentByAttorneyId(attorneyId);
         if (assignment.size() == 0) {
             return new Response<>(200, "没有维修派工单", null);

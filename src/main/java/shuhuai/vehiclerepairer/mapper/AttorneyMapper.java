@@ -13,7 +13,7 @@ public interface AttorneyMapper {
 
     List<Attorney> selectAttorneyByCustomerId(Integer customerId);
 
-    List<Attorney> selectAttorneyBySalesmanId(String salesmanId);
+    List<Attorney> selectAttorneyBySalesmanId(String salesmanId, Boolean isFinished);
 
     Attorney selectAttorneyById(Integer attorneyId);
 

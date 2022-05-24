@@ -10,7 +10,7 @@ public interface AssignmentService {
 
     List<Assignment> getAssignmentByAttorneyId(Integer attorneyId);
 
-    List<Assignment> getAssignmentByRepairman(String repairmanId);
+    List<Assignment> getAssignmentByRepairman(String repairmanId,Boolean isFinished);
 
     void updateAssignment(Assignment assignment);
 

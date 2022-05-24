@@ -11,5 +11,7 @@ public interface CustomerService {
 
     List<Customer> getCustomer(String phone, String name, String type);
 
+    List<Customer> selectAllCustomer();
+
 
 }

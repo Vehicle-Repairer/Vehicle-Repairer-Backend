@@ -15,5 +15,7 @@ public interface CustomerMapper {
 
     List<Customer> selectCustomerByParam(String phone, String name, String type);
 
+    List<Customer> selectAllCustomer();
+
 
 }

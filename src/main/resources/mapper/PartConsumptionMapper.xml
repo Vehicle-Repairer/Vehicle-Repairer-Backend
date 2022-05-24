@@ -70,4 +70,20 @@
           and assignment.attorney_id = #{attorneyId,jdbcType=INTEGER}
     </select>
 
+    <select id="getConsumptionShow" resultType="shuhuai.vehiclerepairer.entity.ConsumptionShow">
+        select part_consumption.consumption_id,
+               assignment.assignment_id,
+               repair_item.item_name,
+               parts.part_name,
+               part_consumption.part_amount
+        from vehicle_repairer.public.parts,
+             vehicle_repairer.public.part_consumption,
+             vehicle_repairer.public.assignment,
+             vehicle_repairer.public.repair_item
+        where parts.part_id = part_consumption.part_id
+        and assignment.assignment_id = #{assigmentId,jdbcType=INTEGER}
+        and repair_item.item_id = assignment.item_id
+        and part_consumption.assignment_id = assignment.assignment_id
+    </select>
+
 </mapper>

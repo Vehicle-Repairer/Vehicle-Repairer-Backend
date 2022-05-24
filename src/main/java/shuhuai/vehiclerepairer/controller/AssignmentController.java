@@ -69,8 +69,10 @@ public class AssignmentController extends BaseController {
                     repairItem.getNeedTime(),
                     repairman.getManName(),
                     repairItem.getProfession(),
-                    repairman.getPhone(),
-                    assignment.isFinished());
+                    repairman.getPhone(),"未完成");
+            if (assignment.isFinished()) {
+                assignmentShow.setStatus("已完成");
+            }
             assignmentShowList.add(assignmentShow);
         }
         return new Response<>(200, "查询该委托书的维修派工单成功", new HashMap<String, Object>() {{
@@ -87,8 +89,8 @@ public class AssignmentController extends BaseController {
             @ApiResponse(code = 500, message = "服务器错误")
     })
 
-    public Response<Object> getAssignmentByRepairman(@RequestParam String repairmanId) {
-        List<Assignment> assignments = assignmentService.getAssignmentByRepairman(repairmanId);
+    public Response<Object> getAssignmentByRepairman(@RequestParam String repairmanId, Boolean isFinished) {
+        List<Assignment> assignments = assignmentService.getAssignmentByRepairman(repairmanId, isFinished);
         List<repairmanAssigmentShow> assignmentShowList = new java.util.ArrayList<>(Collections.emptyList());
         for(Assignment assignment:assignments) {
             RepairItem repairItem = repairItemService.getRepairItem(assignment.getItemId());

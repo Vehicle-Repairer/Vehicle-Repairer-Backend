@@ -47,8 +47,8 @@ public class AttorneyServiceTests {
     @Test
     public void testGetAttorneyBySalesmanId() {
         try {
-            attorneyService.getAttorneyBySalesmanId("19120210");
-            log.info("查询业务员的维修委托书：" + attorneyService.getAttorneyBySalesmanId("19120210").toString());
+            attorneyService.getAttorneyBySalesmanId("19120210",true);
+            log.info("查询业务员的维修委托书：" + attorneyService.getAttorneyBySalesmanId("19120210",true).toString());
         } catch (BaseException error) {
             log.error(error.getMessage());
         }

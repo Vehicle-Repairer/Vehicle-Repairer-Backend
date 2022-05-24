@@ -51,7 +51,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getCustomer(String phone, String name, String type) {
         TokenValidator.checkRole(Role.业务员);
+        if (phone == null && name == null && type == null) {
+            return customerMapper.selectAllCustomer();
+        }
         return customerMapper.selectCustomerByParam(phone, name, type);
+    }
+
+    @Override
+    public List<Customer> selectAllCustomer() {
+        return customerMapper.selectAllCustomer();
     }
 
 

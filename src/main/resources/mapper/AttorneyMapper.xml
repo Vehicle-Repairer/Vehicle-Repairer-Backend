@@ -178,8 +178,18 @@
         where attorney_id = #{attorneyId,jdbcType=INTEGER}
     </select>
     <select id="selectAttorneyBySalesmanId" resultType="shuhuai.vehiclerepairer.entity.Attorney">
-        select *
-        from attorney
-        where salesman_id = #{salesmanId,jdbcType=VARCHAR}
+        <if test = "isFinished!= null ">
+            select *
+            from vehicle_repairer.public.attorney
+            where salesman_id = #{salesmanId,jdbcType=VARCHAR}
+            and is_finished = #{isFinished,jdbcType=BIT}
+            order by attorney_id desc
+        </if>
+        <if test = "isFinished == null ">
+            select *
+            from vehicle_repairer.public.attorney
+            where salesman_id = #{salesmanId,jdbcType=VARCHAR}
+            order by attorney_id desc
+        </if>
     </select>
 </mapper>
