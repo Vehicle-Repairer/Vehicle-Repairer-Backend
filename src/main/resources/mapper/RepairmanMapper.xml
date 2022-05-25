@@ -16,7 +16,7 @@
         <result column="created_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" property="createdTime"/>
     </resultMap>
     <insert id="insertRepairmanSelective" keyProperty="id" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        insert into vehicle_repairer.public.repairman
+        insert into repairman
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -89,7 +89,7 @@
         </trim>
     </insert>
     <update id="updateRepairmanSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Repairman">
-        update vehicle_repairer.public.repairman
+        update repairman
         <set>
             <if test="manName != null">
                 man_name=#{manName,jdbcType=VARCHAR},
@@ -126,16 +126,16 @@
     </update>
     <select id="selectRepairmanById" resultType="shuhuai.vehiclerepairer.entity.Repairman">
         select *
-        from vehicle_repairer.public.repairman
+        from repairman
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <select id="selectRepairmanByPro" resultType="shuhuai.vehiclerepairer.entity.Repairman">
         select *
-        from vehicle_repairer.public.repairman
+        from repairman
         where profession = #{id,jdbcType=VARCHAR}
     </select>
     <select id="selectAllRepairman" resultType="shuhuai.vehiclerepairer.entity.Repairman">
         select *
-        from vehicle_repairer.public.repairman
+        from repairman
     </select>
 </mapper>

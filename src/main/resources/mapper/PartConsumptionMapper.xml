@@ -4,7 +4,7 @@
 
     <insert id="insertConsumptionSelective" keyProperty="consumptionId" useGeneratedKeys="true"
             parameterType="shuhuai.vehiclerepairer.entity.Consumption">
-        insert into vehicle_repairer.public.part_consumption
+        insert into part_consumption
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="assignmentId != null">
                 assignment_id,
@@ -30,7 +30,7 @@
     </insert>
 
     <update id="updateConsumptionById" parameterType="shuhuai.vehiclerepairer.entity.Consumption">
-        update vehicle_repairer.public.part_consumption
+        update part_consumption
         <set>
             <if test="assignmentId != null">
                 assignment_id = #{assignmentId,jdbcType=INTEGER},
@@ -47,24 +47,24 @@
 
     <select id="selectConsumptionByAssignmentId" resultType="shuhuai.vehiclerepairer.entity.Consumption">
         select *
-        from vehicle_repairer.public.part_consumption
+        from part_consumption
         where assignment_id = #{assignmentId,jdbcType=INTEGER}
         order by consumption_id
     </select>
 
     <select id="getAssignmentPrice" resultType="java.math.BigDecimal">
         select sum(part_price * part_amount)
-        from vehicle_repairer.public.parts,
-             vehicle_repairer.public.part_consumption
+        from parts,
+             part_consumption
         where parts.part_id = part_consumption.part_id
           and part_consumption.assignment_id = #{assignmentId,jdbcType=INTEGER}
     </select>
 
     <select id="getAttorneyPrice" resultType="java.math.BigDecimal">
         select sum(part_price * part_amount)
-        from vehicle_repairer.public.parts,
-             vehicle_repairer.public.part_consumption,
-            vehicle_repairer.public.assignment
+        from parts,
+             part_consumption,
+            assignment
         where parts.part_id = part_consumption.part_id
           and part_consumption.assignment_id =assignment.assignment_id
           and assignment.attorney_id = #{attorneyId,jdbcType=INTEGER}
@@ -76,10 +76,10 @@
                repair_item.item_name,
                parts.part_name,
                part_consumption.part_amount
-        from vehicle_repairer.public.parts,
-             vehicle_repairer.public.part_consumption,
-             vehicle_repairer.public.assignment,
-             vehicle_repairer.public.repair_item
+        from parts,
+             part_consumption,
+             assignment,
+             repair_item
         where parts.part_id = part_consumption.part_id
         and assignment.assignment_id = #{assigmentId,jdbcType=INTEGER}
         and repair_item.item_id = assignment.item_id

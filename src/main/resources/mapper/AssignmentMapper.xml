@@ -80,28 +80,28 @@
     <select id="selectAssignmentByRepairMan" resultType="shuhuai.vehiclerepairer.entity.Assignment">
         <if test = "isFinished!= null ">
             select *
-            from vehicle_repairer.public.assignment
+            from assignment
             where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
             and is_finished = #{isFinished,jdbcType=BIT}
             order by assignment_id desc
         </if>
         <if test = "isFinished == null ">
         select *
-        from vehicle_repairer.public.assignment
+        from assignment
         where repair_man_id = #{repairmanId,jdbcType=VARCHAR}
         order by assignment_id desc
         </if>
     </select>
     <select id="selectAssignmentById" resultType="shuhuai.vehiclerepairer.entity.Assignment">
         select *
-        from vehicle_repairer.public.assignment
+        from assignment
         where assignment_id = #{assignmentId,jdbcType=INTEGER}
     </select>
     <select id="attorneyRepairmanPrice" resultType="java.math.BigDecimal">
         select sum(repairman.hour_cost * repair_item.need_time)
-        from vehicle_repairer.public.repairman,
-             vehicle_repairer.public.assignment,
-             vehicle_repairer.public.repair_item
+        from repairman,
+             assignment,
+             repair_item
         where repairman.id = assignment.repair_man_id
             and repair_item.item_id = assignment.item_id
             and assignment.attorney_id = #{attorneyId,jdbcType=INTEGER}

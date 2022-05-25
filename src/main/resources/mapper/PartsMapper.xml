@@ -8,7 +8,7 @@
     </resultMap>
     <insert id="insertPartSelective" keyProperty="partId" useGeneratedKeys="true"
             parameterType="shuhuai.vehiclerepairer.entity.Parts">
-        insert into vehicle_repairer.public.parts
+        insert into parts
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="partName != null">
                 part_name,
@@ -28,16 +28,16 @@
     </insert>
     <select id="selectAllParts" resultType="shuhuai.vehiclerepairer.entity.Parts">
         select *
-        from vehicle_repairer.public.parts
+        from parts
         order by part_id
     </select>
     <select id="selectPartById" resultType="shuhuai.vehiclerepairer.entity.Parts">
         select *
-        from vehicle_repairer.public.parts
+        from parts
         where part_id = #{partId,jdbcType=INTEGER}
     </select>
     <update id="updatePartSelectiveById" parameterType="shuhuai.vehiclerepairer.entity.Parts">
-        update vehicle_repairer.public.parts
+        update parts
         <set>
             <if test="partName != null">
                 part_name = #{partName,jdbcType=VARCHAR},

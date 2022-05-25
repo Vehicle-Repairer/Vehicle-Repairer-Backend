@@ -11,7 +11,7 @@
     </resultMap>
     <insert id="insertVehicleSelective" keyProperty="frameNumber"
             parameterType="shuhuai.vehiclerepairer.entity.Vehicle">
-        insert into vehicle_repairer.public.vehicle
+        insert into vehicle
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="frameNumber != null">
                 frame_number,
@@ -54,7 +54,7 @@
         </trim>
     </insert>
     <update id="updateVehicleSelectiveByFrameNumber" parameterType="shuhuai.vehiclerepairer.entity.Vehicle">
-        update vehicle_repairer.public.vehicle
+        update vehicle
         <set>
             <if test="licenseNumber != null">
                 license_number = #{licenseNumber,jdbcType=VARCHAR},
@@ -76,12 +76,12 @@
     </update>
     <select id="selectVehicleByFrameNumber" resultType="shuhuai.vehiclerepairer.entity.Vehicle">
         select *
-        from vehicle_repairer.public.vehicle
+        from vehicle
         where frame_number = #{frameNumber,jdbcType=VARCHAR}
     </select>
     <select id="selectVehicleByCustomerId" resultType="shuhuai.vehiclerepairer.entity.Vehicle">
         select *
-        from vehicle_repairer.public.vehicle
+        from vehicle
         where customer_id = #{customerId,jdbcType=INTEGER}
     </select>
 </mapper>

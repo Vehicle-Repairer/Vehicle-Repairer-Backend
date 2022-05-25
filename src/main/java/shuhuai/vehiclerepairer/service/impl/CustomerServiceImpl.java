@@ -62,5 +62,17 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.selectAllCustomer();
     }
 
+    @Override
+    public void updateCustomer(Customer customer) {
+        TokenValidator.checkRole(Role.业务员);
+        if (customer == null) {
+            throw new ParamsException("参数错误");
+        }
+        Integer result = customerMapper.updateCustomerSelectiveByCustomerId(customer);
+        if (result != 1) {
+            throw new ServerException("更新失败");
+        }
+    }
+
 
 }

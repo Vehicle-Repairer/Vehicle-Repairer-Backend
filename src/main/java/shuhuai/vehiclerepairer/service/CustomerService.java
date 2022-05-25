@@ -13,5 +13,7 @@ public interface CustomerService {
 
     List<Customer> selectAllCustomer();
 
+    void updateCustomer(Customer customer);
+
 
 }

@@ -9,7 +9,7 @@
     </resultMap>
     <insert id="insertRepairItemSelective" keyProperty="itemId" useGeneratedKeys="true"
             parameterType="shuhuai.vehiclerepairer.entity.RepairItem">
-        insert into vehicle_repairer.public.repair_item
+        insert into repair_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="itemName != null">
                 item_name,
@@ -35,7 +35,7 @@
     </insert>
 
     <update id="updateRepairItemById" parameterType="shuhuai.vehiclerepairer.entity.RepairItem">
-        update vehicle_repairer.public.repair_item
+        update repair_item
         <set>
             <if test="itemName != null">
                 item_name = #{itemName,jdbcType=VARCHAR},
@@ -52,27 +52,27 @@
 
     <select id="selectAllItems" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
         select *
-        from vehicle_repairer.public.repair_item
+        from repair_item
         order by item_id
     </select>
 
     <select id="selectItemsByItemName" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
         select *
-        from vehicle_repairer.public.repair_item
+        from repair_item
         where item_name = #{itemName,jdbcType=VARCHAR}
         order by item_id
     </select>
 
     <select id="selectItemsByProfession" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
         select *
-        from vehicle_repairer.public.repair_item
+        from repair_item
         where profession = #{profession,jdbcType=VARCHAR}
         order by item_id
     </select>
 
     <select id="selectItemsByProfessionAndName" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
         select *
-        from vehicle_repairer.public.repair_item
+        from repair_item
         where profession = #{profession,jdbcType=VARCHAR}
           and item_name = #{itemName,jdbcType=VARCHAR}
         order by item_id
@@ -80,7 +80,7 @@
 
     <select id="selectItemById" resultType="shuhuai.vehiclerepairer.entity.RepairItem">
         select *
-        from vehicle_repairer.public.repair_item
+        from repair_item
         where item_id = #{itemId,jdbcType=VARCHAR}
     </select>
 </mapper>
