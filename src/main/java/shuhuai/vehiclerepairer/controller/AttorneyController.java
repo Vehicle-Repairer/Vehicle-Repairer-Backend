@@ -153,6 +153,8 @@ public class AttorneyController extends BaseController {
         BigDecimal total = part.add(man);
         total = total.multiply(discount);
         FinalPrice finalPrice = new FinalPrice(man,part,discount_rate*100,total);
+        attorney.setFinalPrice(total.doubleValue());
+        attorneyService.updateAttorney(attorney);
         return new Response<>(200, "价格获取成功",new HashMap<String, Object>() {{
             put("价格明细", finalPrice);
         }});
