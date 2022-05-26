@@ -38,12 +38,9 @@ public class UserController extends BaseController {
             @ApiResponse(code = 422, message = "参数错误"),
             @ApiResponse(code = 500, message = "服务器错误")
     })
-    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password, String profession) {
+    public Response<Object> active(@RequestParam Role role, @RequestParam String id, @RequestParam String password) {
         if (role == Role.维修员) {
-            if (profession == null) {
-                throw new ParamsException("参数错误");
-            }
-            userService.repairmanActive(id, password, profession);
+            userService.repairmanActive(id, password);
         } else if (role == Role.业务员) {
             userService.salesmanActive(id, password);
         } else {

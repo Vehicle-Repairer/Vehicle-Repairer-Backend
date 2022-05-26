@@ -16,9 +16,8 @@ public class Repairman extends BaseMan implements Serializable {
     private String profession;
     private BigDecimal hourCost;
 
-    public Repairman(String id, String hashedPassword, String profession) {
+    public Repairman(String id, String hashedPassword) {
         super(id, hashedPassword);
-        this.profession = profession;
     }
 
     public Repairman(String id, String manName, String hashedPassword, Sex sex, String phone, String birthday, String address, String emailAddress,
