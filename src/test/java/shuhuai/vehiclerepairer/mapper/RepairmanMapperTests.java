@@ -26,7 +26,7 @@ public class RepairmanMapperTests {
     public void testInsertRepairman() {
         String id = "19120176";
         String hashedPassword = Hashing.getHashedString("prwq0421");
-        Repairman repairman = new Repairman(id, hashedPassword, "程序员");
+        Repairman repairman = new Repairman(id, hashedPassword);
         int rows = repairmanMapper.insertRepairmanSelective(repairman);
         log.info("插入" + rows + "行维修员数据：" + repairman + "。");
     }
